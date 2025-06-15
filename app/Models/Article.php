@@ -65,13 +65,9 @@ class Article extends Model
 
     public function scopePublished($query)
     {
-        $now = config('app.timezone') === 'UTC' 
-            ? now()->utc() 
-            : now(config('app.timezone'))->utc();
-            
         return $query->where('status', 'published')
-            ->where('published_at', '<=', $now)
-            ->whereNotNull('published_at');
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now());
     }
 
         public function scopePublishedNow($query)
@@ -85,7 +81,8 @@ class Article extends Model
 
     public function scopeRecent($query, $limit = 10)
     {
-        return $query->orderBy('published_at', 'desc')->limit($limit);
+        return $query->orderBy('published_at', 'desc')
+                     ->take($limit);
     }
 
     public function incrementViews()

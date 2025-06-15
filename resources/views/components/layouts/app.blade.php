@@ -6,6 +6,7 @@
     <title>@yield('title', 'Website')</title>
     <meta name="description" content="@yield('description', 'Website description')">
     
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
@@ -15,8 +16,7 @@
     
     <!-- Main Content -->
     <main>
-        @yield('content')
-        <livewire:frontend.article-list />
+        {{ $slot }} 
     </main>
     
     <!-- Footer -->

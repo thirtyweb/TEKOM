@@ -10,7 +10,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        return view('frontend.articles.index');
+        return view('livewire.frontend.article-list');
     }
 
     public function show(Article $article)

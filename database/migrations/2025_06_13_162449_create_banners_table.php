@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('image');
+            $table->json('slides')->nullable();
             $table->string('link_url')->nullable();
             $table->string('button_text')->nullable();
             $table->integer('order')->default(0);

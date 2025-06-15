@@ -7,6 +7,7 @@ use App\Livewire\Frontend\ArticleDetail;
 use App\Livewire\Frontend\GalleryIndex;
 use App\Livewire\Frontend\ResourceIndex;
 use App\Livewire\Frontend\FaqIndex;
+use App\Livewire\Frontend\GalleryShow;
 
 Route::get('/', HomePage::class)->name('home');
 
@@ -21,6 +22,7 @@ Route::get('/kategori/{category}', function($category) {
 
 // Gallery routes
 Route::get('/galeri', GalleryIndex::class)->name('gallery.index');
+Route::get('/galeri/{gallery:slug}', GalleryShow::class)->name('gallery.show');
 
 // Resources routes
 Route::get('/resource', ResourceIndex::class)->name('resources.index');

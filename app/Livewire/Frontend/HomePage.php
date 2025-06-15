@@ -5,6 +5,7 @@ namespace App\Livewire\Frontend;
 use Livewire\Component;
 use App\Models\Article;
 use App\Models\Banner;
+use App\Models\Gallery;
 use App\Models\Quote;
 
 class HomePage extends Component
@@ -13,6 +14,7 @@ class HomePage extends Component
     {
         return view('livewire.frontend.home-page', [
             'banners' => Banner::active()->ordered()->get(),
+            'galleries' => Gallery::active()->get(),
             'featuredArticles' => Article::published()->recent(6)->with(['category', 'author'])->get(),
             'quoteOfTheDay' => Quote::active()->random()->first(),
         ]);
