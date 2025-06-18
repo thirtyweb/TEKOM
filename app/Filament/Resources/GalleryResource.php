@@ -10,6 +10,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Collection;
+use Filament\Notifications\Notification;
 
 class GalleryResource extends Resource
 {
@@ -41,7 +44,14 @@ class GalleryResource extends Resource
                         '1:1',
                     ])
                     ->required()
-                    ->helperText('Upload multiple images for this gallery'),
+                    ->helperText('Upload multiple images for this gallery')
+                    ->deleteUploadedFileUsing(function ($file) {
+                        // Hapus file ketika dihapus dari form
+                        if (Storage::disk('public')->exists($file)) {
+                            return Storage::disk('public')->delete($file);
+                        }
+                        return true;
+                    }),
                 Forms\Components\Toggle::make('is_active')
                     ->default(true),
             ]);
@@ -107,12 +117,51 @@ class GalleryResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->before(function (Gallery $record) {
+                        // Hapus semua images sebelum record dihapus
+                        $images = $record->images;
+                        
+                        // Handle different data types
+                        if (is_string($images)) {
+                            $images = json_decode($images, true);
+                        }
+                        
+                        if (is_array($images) && !empty($images)) {
+                            foreach ($images as $image) {
+                                if (!empty($image) && Storage::disk('public')->exists($image)) {
+                                    Storage::disk('public')->delete($image);
+                                }
+                            }
+                        }
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->before(function (Collection $records) {
+                            // Hapus semua images sebelum records dihapus (bulk delete)
+                            foreach ($records as $record) {
+                                $images = $record->images;
+                                
+                                // Handle different data types
+                                if (is_string($images)) {
+                                    $images = json_decode($images, true);
+                                }
+                                
+                                if (is_array($images) && !empty($images)) {
+                                    foreach ($images as $image) {
+                                        if (!empty($image) && Storage::disk('public')->exists($image)) {
+                                            Storage::disk('public')->delete($image);
+                                        }
+                                    }
+                                }
+                            }
+                        }),
                 ]),
+            ])
+            ->headerActions([
+
             ])
             ->defaultSort('created_at', 'desc');
     }
@@ -122,6 +171,7 @@ class GalleryResource extends Resource
         return [
             'index' => Pages\ListGalleries::route('/'),
             'create' => Pages\CreateGallery::route('/create'),
-            'edit' => Pages\EditGallery::route('/{record}/edit'),        ];
+            'edit' => Pages\EditGallery::route('/{record}/edit'),
+        ];
     }
 }

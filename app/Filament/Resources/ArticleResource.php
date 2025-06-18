@@ -12,6 +12,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Collection;
+use Filament\Notifications\Notification;
 
 class ArticleResource extends Resource
 {
@@ -43,7 +46,14 @@ class ArticleResource extends Resource
                     ->schema([
                         Forms\Components\FileUpload::make('featured_image')
                             ->image()
-                            ->directory('articles'),
+                            ->directory('articles')
+                            ->deleteUploadedFileUsing(function ($file) {
+                                // Hapus file ketika dihapus dari form
+                                if (Storage::disk('public')->exists($file)) {
+                                    return Storage::disk('public')->delete($file);
+                                }
+                                return true;
+                            }),
                         Forms\Components\Select::make('category_id')
                             ->relationship('category', 'name')
                             ->required(),
@@ -115,14 +125,34 @@ class ArticleResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->before(function (Article $record) {
+                        // Hapus featured_image sebelum record dihapus
+                        if (!empty($record->featured_image) && Storage::disk('public')->exists($record->featured_image)) {
+                            Storage::disk('public')->delete($record->featured_image);
+                        }
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->before(function (Collection $records) {
+                            // Hapus featured_image sebelum records dihapus (bulk delete)
+                            foreach ($records as $record) {
+                                if (!empty($record->featured_image) && Storage::disk('public')->exists($record->featured_image)) {
+                                    Storage::disk('public')->delete($record->featured_image);
+                                }
+                            }
+                        }),
                 ]),
+            ])
+            ->headerActions([
             ]);
     }
+
+    /**
+     * Clean orphaned article images
+     */
 
     public static function getPages(): array
     {

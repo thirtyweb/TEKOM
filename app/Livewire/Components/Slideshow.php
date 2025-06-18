@@ -14,7 +14,6 @@ class Slideshow extends Component
     {
         $banners = Banner::active()->ordered()->get();
         
-        // Flatten semua slides dari semua banner jadi satu array
         $this->allSlides = [];
         
         foreach($banners as $banner) {
@@ -30,7 +29,6 @@ class Slideshow extends Component
                     ];
                 }
             } else {
-                // Jika banner tidak punya slides, gunakan data banner sebagai slide
                 $this->allSlides[] = [
                     'title' => $banner->title,
                     'description' => $banner->description,

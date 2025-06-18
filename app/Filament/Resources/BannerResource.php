@@ -9,7 +9,9 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
+use Filament\Notifications\Notification;
 
 class BannerResource extends Resource
 {
@@ -55,6 +57,8 @@ class BannerResource extends Resource
                                 Forms\Components\FileUpload::make('image')
                                     ->image()
                                     ->directory('banners/slides')
+                                    ->maxSize(5048) // 2MB dalam KB
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
                                     ->imageEditor()
                                     ->imageEditorAspectRatios([
                                         '16:9',
@@ -62,7 +66,14 @@ class BannerResource extends Resource
                                         '21:9',
                                     ])
                                     ->required()
-                                    ->columnSpan(2),
+                                    ->columnSpan(2)
+                                    ->deleteUploadedFileUsing(function ($file) {
+                                        // Hapus file ketika dihapus dari form
+                                        if (Storage::disk('public')->exists($file)) {
+                                            return Storage::disk('public')->delete($file);
+                                        }
+                                        return true;
+                                    }),
 
                                 Forms\Components\TextInput::make('link_url')
                                     ->url()
@@ -90,6 +101,21 @@ class BannerResource extends Resource
                             ->deleteAction(
                                 fn (Forms\Components\Actions\Action $action) => $action
                                     ->requiresConfirmation()
+                                    ->before(function (array $arguments, Forms\Components\Repeater $component) {
+                                        // Hapus gambar ketika slide dihapus
+                                        $statePath = $component->getStatePath();
+                                        $record = $component->getRecord();
+                                        if ($record && isset($arguments['item'])) {
+                                            $slides = data_get($record, $statePath, []);
+                                            $slideIndex = $arguments['item'];
+                                            if (isset($slides[$slideIndex]['image'])) {
+                                                $imagePath = $slides[$slideIndex]['image'];
+                                                if (Storage::disk('public')->exists($imagePath)) {
+                                                    Storage::disk('public')->delete($imagePath);
+                                                }
+                                            }
+                                        }
+                                    })
                             )
                             ->minItems(1)
                             ->maxItems(10)
@@ -175,12 +201,37 @@ class BannerResource extends Resource
                 Tables\Actions\ViewAction::make()
                     ->slideOver(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->before(function (Banner $record) {
+                        // Hapus semua gambar slides sebelum record dihapus
+                        if (!empty($record->slides) && is_array($record->slides)) {
+                            foreach ($record->slides as $slide) {
+                                if (!empty($slide['image']) && Storage::disk('public')->exists($slide['image'])) {
+                                    Storage::disk('public')->delete($slide['image']);
+                                }
+                            }
+                        }
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->before(function (Collection $records) {
+                            // Hapus semua gambar slides sebelum records dihapus (bulk delete)
+                            foreach ($records as $record) {
+                                if (!empty($record->slides) && is_array($record->slides)) {
+                                    foreach ($record->slides as $slide) {
+                                        if (!empty($slide['image']) && Storage::disk('public')->exists($slide['image'])) {
+                                            Storage::disk('public')->delete($slide['image']);
+                                        }
+                                    }
+                                }
+                            }
+                        }),
                 ]),
+            ])
+            ->headerActions([
+               
             ])
             ->defaultSort('order', 'asc')
             ->reorderable('order');
