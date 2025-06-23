@@ -111,28 +111,7 @@
                 </div>
             @endforeach
         </div>
-
-        {{-- <!-- Navigation Buttons -->
-        @if(count($allSlides) > 1)
-            <div class="absolute inset-0 flex items-center justify-between px-4 pointer-events-none">
-                <!-- Previous Button -->
-                <button @click="prevSlide" 
-                        class="pointer-events-auto glass-effect hover-lift text-white p-4 rounded-full transition-all duration-300 hover:bg-white/20">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
-
-                <!-- Next Button -->
-                <button @click="nextSlide" 
-                        class="pointer-events-auto glass-effect hover-lift text-white p-4 rounded-full transition-all duration-300 hover:bg-white/20">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
-            </div>
-        @endif --}}
-
+        
         <!-- Progress Indicator -->
         @if(count($allSlides) > 1)
             <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">

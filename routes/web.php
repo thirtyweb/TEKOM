@@ -1,13 +1,16 @@
 <?php
 // routes/web.php
+
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Frontend\HomePage;
 use App\Livewire\Frontend\ArticleList;
 use App\Livewire\Frontend\ArticleDetail;
 use App\Livewire\Frontend\GalleryIndex;
+use App\Livewire\Frontend\CourseTable;
 use App\Livewire\Frontend\ResourceIndex;
 use App\Livewire\Frontend\FaqIndex;
 use App\Livewire\Frontend\GalleryShow;
+
 
 Route::get('/', HomePage::class)->name('home');
 
@@ -26,6 +29,9 @@ Route::get('/galeri/{gallery:slug}', GalleryShow::class)->name('gallery.show');
 
 // Resources routes
 Route::get('/resource', ResourceIndex::class)->name('resources.index');
+
+//courses routes
+Route::get('/courses', CourseTable::class)->name('courses.index');
 
 // FAQ routes
 Route::get('/faq', FaqIndex::class)->name('faq.index');

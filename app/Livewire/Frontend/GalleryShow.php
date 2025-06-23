@@ -50,6 +50,6 @@ class GalleryShow extends Component
 
     public function render()
     {
-        return view('livewire.frontend.gallery-show');
+        return view('livewire.frontend.gallery.gallery-show');
     }
 }

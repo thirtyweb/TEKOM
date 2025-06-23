@@ -12,7 +12,7 @@ class GalleryIndex extends Component
 
     public function render()
     {
-        return view('livewire.frontend.gallery-index', [
+        return view('livewire.frontend.gallery.gallery-index', [
             'galleries' => Gallery::where('is_active', true)
                 ->orderBy('created_at', 'desc')
                 ->paginate(9),

@@ -61,7 +61,7 @@ class ArticleList extends Component
                 $query->orderBy('published_at', 'desc');
         }
 
-        return view('livewire.frontend.article-list', [
+        return view('livewire.frontend.articles.article-list', [
             'articles' => $query->paginate(12),
             'categories' => Category::where('is_active', true)->get(),
         ]);

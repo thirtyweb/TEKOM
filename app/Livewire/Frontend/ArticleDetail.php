@@ -17,7 +17,7 @@ class ArticleDetail extends Component
 
     public function render()
     {
-        return view('livewire.frontend.article-detail', [
+        return view('livewire.frontend.articles.article-detail', [
             'relatedArticles' => Article::published()
                 ->where('category_id', $this->article->category_id)
                 ->where('id', '!=', $this->article->id)
