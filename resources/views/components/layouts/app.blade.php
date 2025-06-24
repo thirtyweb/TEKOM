@@ -16,13 +16,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        /* Sembunyikan kontainer utama secara default untuk mencegah flash */
         #hacking-simulator-container,
         #main-website-container {
             display: none;
         }
 
-        /* Styling untuk Intro Simulator */
         #hacking-simulator-container.active {
             display: flex;
             font-family: 'Fira Code', monospace;
@@ -74,11 +72,9 @@
         }
 
 
-        /* Styling Website Utama dengan tema Black & Green */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0d1117;
-            /* Warna body awal untuk intro */
         }
         
 
@@ -90,7 +86,6 @@
             background-image: linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px), linear-gradient(to right, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
             background-size: 2rem 2rem;
             color: #e5e7eb;
-            /* gray-200 */
         }
     </style>
 
@@ -120,135 +115,11 @@
             {{ $slot }}
         </main>
         <footer class="bg-black/50 border-t-2 border-green-500/20 pt-16 pb-8 mt-16 shadow-inner">
-            <!-- ... Konten footer Anda ... -->
+            <livewire:components.footer />
         </footer>
     </div>
 
-    <!-- ===== Footer ===== -->
-    <!-- [UBAH] Footer dengan tema Black & Green -->
-
-    <footer class="bg-black/50 border-t-2 border-green-500/20 pt-16 pb-8 mt-16 shadow-inner">
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
-
-                <!-- Tentang Kami -->
-
-                <div>
-
-                    <h3 class="font-mono text-lg font-bold text-green-300 mb-4">&gt; NODE_INFO</h3>
-
-                    <p class="text-gray-400 text-sm">Pusat data terdistribusi untuk departemen TEKOMSS. Menyediakan
-                        intelijen, arsip, dan sumber daya terenkripsi.</p>
-
-                    <div class="mt-6 flex space-x-4">
-
-                        <a href="#"
-                            class="text-gray-500 hover:text-green-400 transition-all duration-300 transform hover:scale-110"><i
-                                class="fab fa-facebook-f"></i></a>
-
-                        <a href="#"
-                            class="text-gray-500 hover:text-green-400 transition-all duration-300 transform hover:scale-110"><i
-                                class="fab fa-twitter"></i></a>
-
-                        <a href="#"
-                            class="text-gray-500 hover:text-green-400 transition-all duration-300 transform hover:scale-110"><i
-                                class="fab fa-instagram"></i></a>
-
-                        <a href="#"
-                            class="text-gray-500 hover:text-green-400 transition-all duration-300 transform hover:scale-110"><i
-                                class="fab fa-youtube"></i></a>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Menu -->
-
-                <div>
-
-                    <h3 class="font-mono text-lg font-bold text-green-300 mb-4">// DIRECTORIES</h3>
-
-                    <ul class="space-y-3 text-sm">
-
-                        <li><a href="{{ route('home') }}"
-                                class="text-gray-400 hover:text-white flex items-center transition-colors"><span
-                                    class="text-green-400 mr-2">&gt;</span> Beranda</a></li>
-
-                        <li><a href="{{ route('articles.index') }}"
-                                class="text-gray-400 hover:text-white flex items-center transition-colors"><span
-                                    class="text-green-400 mr-2">&gt;</span> Artikel</a></li>
-
-                        <li><a href="{{ route('gallery.index') }}"
-                                class="text-gray-400 hover:text-white flex items-center transition-colors"><span
-                                    class="text-green-400 mr-2">&gt;</span> Galeri</a></li>
-
-                        <li><a href="{{ route('resources.index') }}"
-                                class="text-gray-400 hover:text-white flex items-center transition-colors"><span
-                                    class="text-green-400 mr-2">&gt;</span> Resource</a></li>
-
-                    </ul>
-
-                </div>
-
-
-
-                <!-- Kontak -->
-
-                <div>
-
-                    <h3 class="font-mono text-lg font-bold text-green-300 mb-4">// COMMS_LINK</h3>
-
-                    <ul class="space-y-3 text-gray-400 text-sm">
-
-                        <li class="flex items-start"><i
-                                class="fas fa-map-marker-alt mt-1 mr-3 text-green-400/70"></i><span>Sector 7G,
-                                Neo-Akademik City</span></li>
-
-                        <li class="flex items-center"><i class="fas fa-phone-alt mr-3 text-green-400/70"></i><span>+62
-                                (21) 123-4567</span></li>
-
-                        <li class="flex items-center"><i
-                                class="fas fa-envelope mr-3 text-green-400/70"></i><span>info@tekomss.net</span></li>
-
-                    </ul>
-
-                </div>
-
-
-
-                <!-- Quote -->
-
-                <div>
-
-                    <h3 class="font-mono text-lg font-bold text-green-300 mb-4">// CORE_PROTOCOL</h3>
-
-                    <div class="border border-gray-800 bg-gray-900/40 p-4 rounded-md">
-
-                        <livewire:components.quote-of-the-day />
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- Copyright -->
-
-            <div class="border-t border-gray-800 mt-10 pt-8 text-center text-gray-600 text-xs font-mono">
-
-                <p>&copy; {{ date('Y') }} TEKOMSS Data Hub // All rights reserved // SECURE_SESSION_ACTIVE</p>
-
-            </div>
-
-        </div>
-
-    </footer>
+   
 
 
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage; // Import Storage facade
 use Illuminate\Support\Str;
 
 class Resource extends Model
@@ -29,10 +30,19 @@ class Resource extends Model
     protected static function boot()
     {
         parent::boot();
-        
+
         static::creating(function ($resource) {
             if (empty($resource->slug)) {
                 $resource->slug = Str::slug($resource->title);
+            }
+        });
+
+        // Add this deleting event listener
+        static::deleting(function ($resource) {
+            // Check if file_path exists and is not null
+            if ($resource->file_path) {
+                // Delete the file from the 'public' disk within the 'resources' directory
+                Storage::disk('public')->delete($resource->file_path);
             }
         });
     }
@@ -46,11 +56,11 @@ class Resource extends Model
     {
         $bytes = $this->file_size;
         $units = ['B', 'KB', 'MB', 'GB'];
-        
+
         for ($i = 0; $bytes > 1024; $i++) {
             $bytes /= 1024;
         }
-        
+
         return round($bytes, 2) . ' ' . $units[$i];
     }
 

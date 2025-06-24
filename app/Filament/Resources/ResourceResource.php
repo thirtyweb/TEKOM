@@ -34,14 +34,21 @@ class ResourceResource extends Resource
                     ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
                     ->afterStateUpdated(function ($state, callable $set) {
                         if ($state) {
-                            $file = $state->getClientOriginalName();
+                            // getClientOriginalName() tidak diperlukan di sini
                             $extension = $state->getClientOriginalExtension();
                             $size = $state->getSize();
-                            
+
                             $set('file_type', $extension);
                             $set('file_size', $size);
                         }
                     }),
+                
+                // --- PENAMBAHAN DI SINI ---
+                // Tambahkan field tersembunyi agar Filament menyimpannya ke database
+                Forms\Components\Hidden::make('file_type'),
+                Forms\Components\Hidden::make('file_size'),
+                // --- AKHIR PENAMBAHAN ---
+
                 Forms\Components\TextInput::make('download_url')
                     ->url(),
                 Forms\Components\Toggle::make('is_active')
@@ -49,6 +56,7 @@ class ResourceResource extends Resource
             ]);
     }
 
+    // ... sisa kode tidak perlu diubah ...
     public static function table(Table $table): Table
     {
         return $table

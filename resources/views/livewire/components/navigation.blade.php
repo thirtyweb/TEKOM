@@ -8,7 +8,7 @@
                     <a wire:navigate href="{{ route('home') }}" class="flex items-center space-x-3 group">
                         <!-- Kotak logo dengan border neon dan efek glitch kecil saat di-hover -->
                         <div class="w-10 h-10 rounded-md border-2 border-green-400/50 flex items-center justify-center text-green-400 font-bold text-2xl group-hover:bg-green-400/10 group-hover:shadow-[0_0_15px_rgba(52,211,153,0.5)] transition-all duration-300">
-                            R
+                            T
                         </div>
                         <!-- Teks logo dengan font mono dan efek glow -->
                         <span class="text-xl font-bold font-mono text-green-300 group-hover:text-green-400 group-hover:drop-shadow-[0_0_5px_rgba(52,211,153,0.7)] transition-all duration-300">TEKOMSS</span>

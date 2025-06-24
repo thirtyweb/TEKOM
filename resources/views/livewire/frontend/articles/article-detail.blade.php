@@ -15,9 +15,9 @@
                 <nav class="mb-8">
                     <!-- [UBAH] Breadcrumbs dengan gaya terminal -->
                     <ol class="flex items-center space-x-2 font-mono text-sm text-gray-500">
-                        <li><a href="{{ route('home') }}" class="hover:text-green-300 transition-colors">/home</a></li>
+                        <li><a wire:navigate href="{{ route('home') }}" class="hover:text-green-300 transition-colors">/home</a></li>
                         <li><span class="text-gray-600">/</span></li>
-                        <li><a href="{{ route('articles.index') }}" class="hover:text-green-300 transition-colors">intel_database</a></li>
+                        <li><a wire:navigate href="{{ route('articles.index') }}" class="hover:text-green-300 transition-colors">intel_database</a></li>
                         <li><span class="text-gray-600">/</span></li>
                         <li class="text-green-400 truncate">{{ $article->slug ?? 'reading_log' }}</li>
                     </ol>
@@ -124,14 +124,14 @@
                                              class="group flex flex-col bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden hover:border-green-500/50 transition-colors duration-300">
                                         @if($related->featured_image)
                                             <div class="aspect-[16/9] overflow-hidden">
-                                                <a href="{{ route('articles.show', $related) }}">
+                                                <a wire:navigate href="{{ route('articles.show', $related) }}">
                                                     <img src="{{ asset('storage/' . $related->featured_image) }}" alt="{{ $related->title }}" class="w-full h-full object-cover transition-all duration-500 opacity-40 group-hover:opacity-70">
                                                 </a>
                                             </div>
                                         @endif
                                         <div class="p-4 flex flex-col flex-grow">
                                             <h4 class="font-semibold mb-2 flex-grow group-hover:text-green-300 transition-colors">
-                                                <a href="{{ route('articles.show', $related) }}">{{ $related->title }}</a>
+                                                <a wire:navigate href="{{ route('articles.show', $related) }}">{{ $related->title }}</a>
                                             </h4>
                                             <div class="text-xs text-gray-500 mt-auto pt-2 border-t border-gray-800">
                                                 {{ $related->published_at?->format('Y-m-d') ?? '' }}
@@ -145,7 +145,7 @@
         
                     <!-- Navigation -->
                     <div class="flex justify-between items-center pt-8 border-t border-gray-800">
-                        <a href="{{ route('articles.index') }}" 
+                        <a wire:navigate href="{{ route('articles.index') }}" 
                            class="inline-flex items-center px-6 py-3 bg-gray-800 text-green-300 border-2 border-green-400/50 font-bold rounded-lg hover:bg-green-400/10 hover:text-green-200 hover:border-green-400 transition-all duration-300 text-sm">
                             <i class="fas fa-arrow-left mr-2"></i>
                             RETURN_TO_DATABASE
@@ -153,9 +153,9 @@
                         
                         <!-- Share Buttons -->
                         <div class="flex items-center space-x-2">
-                             <a href="..." target="_blank" class="text-gray-500 hover:text-green-400 p-2 transition-colors"><i class="fab fa-facebook-f"></i></a>
-                             <a href="..." target="_blank" class="text-gray-500 hover:text-green-400 p-2 transition-colors"><i class="fab fa-twitter"></i></a>
-                             <a href="..." target="_blank" class="text-gray-500 hover:text-green-400 p-2 transition-colors"><i class="fab fa-whatsapp"></i></a>
+                             <a wire:navigate href="..." target="_blank" class="text-gray-500 hover:text-green-400 p-2 transition-colors"><i class="fab fa-facebook-f"></i></a>
+                             <a wire:navigate href="..." target="_blank" class="text-gray-500 hover:text-green-400 p-2 transition-colors"><i class="fab fa-twitter"></i></a>
+                             <a wire:navigate href="..." target="_blank" class="text-gray-500 hover:text-green-400 p-2 transition-colors"><i class="fab fa-whatsapp"></i></a>
                         </div>
                     </div>
                 </div>
