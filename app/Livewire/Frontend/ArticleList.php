@@ -7,6 +7,10 @@ use Livewire\WithPagination;
 use App\Models\Article;
 use App\Models\Category;
 use Carbon\Carbon;
+use Livewire\Attributes\Title;
+
+
+#[Title('Articles')] 
 
 class ArticleList extends Component
 {

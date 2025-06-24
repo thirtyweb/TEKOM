@@ -8,6 +8,10 @@ use App\Models\Article;
 use App\Models\Banner;
 use App\Models\Gallery;
 use App\Models\Quote;
+use Livewire\Attributes\Title;
+
+
+#[Title('Home')] 
 
 class HomePage extends Component
 {

@@ -5,7 +5,10 @@ namespace App\Livewire\Frontend;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Resource;
+use Livewire\Attributes\Title;
 
+
+#[Title('Resources')] 
 class ResourceIndex extends Component
 {
     use WithPagination;

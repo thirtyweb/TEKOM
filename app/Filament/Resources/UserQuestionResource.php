@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserQuestionResource\Pages;
-use App\Models\Question;
+use App\Models\Question; // Assuming your model is named 'Question' for user questions
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -17,48 +17,48 @@ class UserQuestionResource extends Resource
     protected static ?string $model = Question::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
-    protected static ?string $navigationGroup = 'Konten';
-    protected static ?string $modelLabel = 'Pertanyaan Pengguna';
-
+    protected static ?string $navigationGroup = 'Content'; // Translated from 'Konten'
+    protected static ?string $modelLabel = 'User Question'; // Translated from 'Pertanyaan Pengguna'
+    protected static ?string $pluralModelLabel = 'User Questions'; // Added plural for clarity in navigation
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make('Informasi Penanya')
-                    ->description('Detail pertanyaan yang dikirim oleh pengguna.')
+                Section::make('Inquirer Information') // Translated
+                    ->description('Details of the question submitted by the user.') // Translated
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->label('Nama')
+                            ->label('Name') // Translated
                             ->required()
                             ->maxLength(255)
-                            ->disabled(), // Dibuat disabled agar tidak bisa diubah admin
+                            ->disabled(), // Kept disabled for admin to not modify
                         Forms\Components\TextInput::make('email')
-                            ->label('Email')
+                            ->label('Email') // Translated
                             ->email()
                             ->maxLength(255)
                             ->disabled(),
                         Forms\Components\Textarea::make('question')
-                            ->label('Pertanyaan')
+                            ->label('Question') // Translated
                             ->required()
                             ->columnSpanFull()
                             ->disabled(),
                     ])->columns(2),
                 
-                Section::make('Jawaban Admin')
-                    ->description('Isi jawaban dan ubah status pertanyaan ini.')
+                Section::make('Admin Response') // Translated
+                    ->description('Enter the answer and change the status of this question.') // Translated
                     ->schema([
-                        // Ini adalah field untuk admin menjawab
+                        // This is the field for admin to answer
                         Forms\Components\RichEditor::make('answer')
-                            ->label('Jawaban Anda')
+                            ->label('Your Answer') // Translated
                             ->required()
                             ->columnSpanFull(),
                         
                         Forms\Components\Select::make('status')
-                            ->label('Status')
+                            ->label('Status') // Translated
                             ->options([
-                                'pending' => 'Pending',
-                                'answered' => 'Answered',
+                                'pending' => 'Pending', // Already English
+                                'answered' => 'Answered', // Already English
                             ])
                             ->required(),
                     ]),
@@ -70,26 +70,27 @@ class UserQuestionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Nama')
+                    ->label('Name') // Translated
                     ->searchable(),
                 Tables\Columns\TextColumn::make('question')
-                    ->label('Pertanyaan')
-                    ->limit(50) // Batasi teks agar tidak terlalu panjang
+                    ->label('Question') // Translated
+                    ->limit(50) // Limit text for better table view
                     ->searchable(),
                 Tables\Columns\BadgeColumn::make('status')
-                    ->label('Status')
+                    ->label('Status') // Already English
                     ->colors([
                         'warning' => 'pending',
                         'success' => 'answered',
                     ]),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Tanggal Masuk')
+                    ->label('Date Submitted') // Translated
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('status')
+                    ->label('Status') // Translated for filter
                     ->options([
                         'pending' => 'Pending',
                         'answered' => 'Answered',

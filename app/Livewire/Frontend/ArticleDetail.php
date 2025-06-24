@@ -4,6 +4,10 @@ namespace App\Livewire\Frontend;
 
 use Livewire\Component;
 use App\Models\Article;
+use Livewire\Attributes\Title;
+
+
+#[Title('Article Detail')] 
 
 class ArticleDetail extends Component
 {

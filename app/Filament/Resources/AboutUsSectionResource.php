@@ -27,8 +27,8 @@ class AboutUsSectionResource extends Resource
     protected static ?string $model = AboutUsSection::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text'; // Ganti ikon navigasi jika mau
-    protected static ?string $modelLabel = 'Halaman Tentang Kami'; // Label di navigasi admin
-    protected static ?string $pluralModelLabel = 'Halaman Tentang Kami'; // Plural label
+    protected static ?string $pluralModelLabel = 'About'; // Plural label
+    protected static ?string $navigationGroup = 'Home Management';
 
     public static function form(Form $form): Form
     {

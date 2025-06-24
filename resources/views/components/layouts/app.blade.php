@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'TEKOMSS Department')</title>
+    <title>{{ $title ?? 'TRK' }}</title>
     <meta name="description" content="@yield('description', 'Website resmi departemen TEKOMSS')">
 
     <!-- Font & Icons -->
@@ -120,7 +120,6 @@
     </div>
 
    
-
 
 
 

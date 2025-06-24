@@ -4,6 +4,10 @@ namespace App\Livewire\Frontend;
 
 use Livewire\Component;
 use App\Models\Gallery;
+use Livewire\Attributes\Title;
+
+
+#[Title('Gallery Detail')] 
 
 class GalleryShow extends Component
 {

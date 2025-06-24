@@ -6,6 +6,10 @@ use App\Models\Course;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
+use Livewire\Attributes\Title;
+
+
+#[Title('Courses')] 
 
 class CourseTable extends Component
 {

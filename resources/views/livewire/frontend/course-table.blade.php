@@ -7,8 +7,7 @@
                     <p class="text-gray-400 mt-2">Menjelajahi kurikulum departemen secara interaktif.</p>
                 </div>
         
-                <div class="bg-gray-900/40 backdrop-blur-sm rounded-lg shadow-lg p-6 mb-8 border border-green-500/20"
-                     data-aos="fade-up" data-aos-duration="800" data-aos-easing="ease-out-quad">
+                <div class="bg-gray-900/40 backdrop-blur-sm rounded-lg shadow-lg p-6 mb-8 border border-green-500/20">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -62,8 +61,7 @@
                     </div>
                 </div>
         
-                <div class="bg-gray-900/40 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden border border-green-500/20"
-                     data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" data-aos-easing="ease-out-quad">
+                <div class="bg-gray-900/40 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden border border-green-500/20">
                     <div class="overflow-x-auto">
                         <table class="w-full">
                             <thead class="bg-slate-800/50">
@@ -85,8 +83,7 @@
                             </thead>
                             <tbody class="divide-y divide-gray-800">
                                 @forelse($courses as $course)
-                                    <tr class="hover:bg-green-500/5 transition-colors duration-150" wire:key="course-{{ $course->id }}"
-                                        data-aos="fade-up" data-aos-duration="600" data-aos-delay="{{ $loop->index * 50 }}">
+                                    <tr class="hover:bg-green-500/5 transition-colors duration-150" wire:key="course-{{ $course->id }}">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-green-900/50 text-green-300 border border-green-800">
                                                 {{ $course->code }}
@@ -141,8 +138,7 @@
                     @endif
                 </div>
         
-                <div class="mt-8 bg-black/20 rounded-lg p-6 text-white border border-green-500/10"
-                     data-aos="fade-up" data-aos-duration="800" data-aos-delay="400" data-aos-easing="ease-out-quad">
+                <div class="mt-8 bg-black/20 rounded-lg p-6 text-white border border-green-500/10">
                     <h3 class="text-lg font-mono text-green-300 mb-4">// STATISTIK_KURIKULUM</h3>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                         <div class="bg-slate-800/50 p-4 rounded-md border-l-4 border-green-500">
@@ -177,26 +173,5 @@
         </div>
     </div>
     
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        document.addEventListener('livewire:navigated', () => {
-            AOS.init({
-                once: true,
-                mirror: false,
-                duration: 800, // Adjusted slightly for quicker appearance on this page
-                easing: 'ease-out-quad',
-            });
-            AOS.refresh();
-        });
     
-        document.addEventListener('DOMContentLoaded', () => {
-            AOS.init({
-                once: true,
-                mirror: false,
-                duration: 800,
-                easing: 'ease-out-quad',
-            });
-        });
-    </script>   
 </div>

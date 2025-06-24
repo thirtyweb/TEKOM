@@ -5,6 +5,10 @@ namespace App\Livewire\Frontend;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Gallery;
+use Livewire\Attributes\Title;
+
+
+#[Title('Gallery')] 
 
 class GalleryIndex extends Component
 {

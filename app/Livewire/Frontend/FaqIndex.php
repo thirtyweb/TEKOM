@@ -5,7 +5,11 @@ namespace App\Livewire\Frontend;
 use Livewire\Component;
 use App\Models\Faq;
 use App\Models\Question;
-use App\Models\Quote; // <-- [1] IMPORT MODEL QUOTE
+use App\Models\Quote;
+use Livewire\Attributes\Title;
+
+
+#[Title('FAQ    ')] 
 
 class FaqIndex extends Component
 {

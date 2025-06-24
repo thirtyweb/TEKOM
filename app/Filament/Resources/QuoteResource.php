@@ -13,7 +13,7 @@ class QuoteResource extends Resource
 {
     protected static ?string $model = Quote::class;
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-ellipsis';
-    protected static ?string $navigationGroup = 'Content Management';
+    protected static ?string $navigationGroup = 'Home Management';
 
     public static function form(Form $form): Form
     {
