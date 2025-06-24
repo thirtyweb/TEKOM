@@ -29,6 +29,26 @@ class Article extends Model
         'published_at' => 'datetime',
         'meta_data' => 'array',
     ];
+    
+    public function getMetaDataAttribute($value)
+    {
+        $data = is_string($value) ? json_decode($value, true) : ($value ?? []);
+        
+        if (isset($data['tags'])) {
+            $data['tags'] = is_array($data['tags']) 
+                ? $data['tags'] 
+                : explode(',', $data['tags']);
+        }
+        
+        return $data;
+    }
+    
+    public function setMetaDataAttribute($value)
+    {
+        $this->attributes['meta_data'] = is_array($value) 
+            ? json_encode($value) 
+            : $value;
+    }
 
     protected static function boot()
     {
@@ -38,7 +58,7 @@ class Article extends Model
             if (empty($article->slug)) {
                 $article->slug = Str::slug($article->title);
             }
-            
+
             // Auto set published_at when status is published and published_at is empty
             if ($article->status === 'published' && !$article->published_at) {
                 $article->published_at = now();
@@ -52,7 +72,6 @@ class Article extends Model
             }
         });
     }
-
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -70,19 +89,19 @@ class Article extends Model
             ->where('published_at', '<=', now());
     }
 
-        public function scopePublishedNow($query)
+    public function scopePublishedNow($query)
     {
         return $query->where('status', 'published')
-            ->where(function($q) {
+            ->where(function ($q) {
                 $q->where('published_at', '<=', now())
-                  ->orWhereNull('published_at');
+                    ->orWhereNull('published_at');
             });
     }
 
     public function scopeRecent($query, $limit = 10)
     {
         return $query->orderBy('published_at', 'desc')
-                     ->take($limit);
+            ->take($limit);
     }
 
     public function incrementViews()

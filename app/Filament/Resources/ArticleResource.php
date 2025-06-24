@@ -79,7 +79,27 @@ class ArticleResource extends Resource
                             ->label('Publish Date')
                             ->helperText('Leave empty to publish immediately when status is published'),
                         Forms\Components\KeyValue::make('meta_data')
-                            ->label('Meta Data'),
+                            ->label('Meta Data')
+                            ->keyLabel('Key')
+                            ->valueLabel('Value')
+                            ->afterStateHydrated(function ($component, $state) {
+                                if (is_array($state)) {
+                                    $converted = [];
+                                    foreach ($state as $key => $value) {
+                                        $converted[$key] = is_array($value) ? implode(',', $value) : $value;
+                                    }
+                                    $component->state($converted);
+                                } elseif (is_string($state)) {
+                                    $component->state(json_decode($state, true) ?? []);
+                                }
+                            })
+                            ->dehydrateStateUsing(function ($state) {
+                                $processed = [];
+                                foreach ($state as $key => $value) {
+                                    $processed[$key] = $key === 'tags' ? explode(',', $value) : $value;
+                                }
+                                return $processed;
+                            }),
                     ])
                     ->columnSpan(['lg' => 1]),
             ])

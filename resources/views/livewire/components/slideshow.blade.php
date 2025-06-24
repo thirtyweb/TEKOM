@@ -1,4 +1,8 @@
-<div class="relative w-full h-[80vh] max-h-[800px] min-h-[500px] overflow-hidden"
+<!-- 
+    File ini bisa Anda gunakan untuk menggantikan komponen slideshow Anda.
+    Semua fungsionalitas Livewire dan Alpine.js tetap sama, hanya kelas CSS yang diubah.
+-->
+<div class="relative w-full h-[75vh] max-h-[700px] min-h-[450px] overflow-hidden bg-black p-2 md:p-3 border-2 border-green-500/20"
      x-data="{
          currentSlide: 0,
          slidesCount: {{ count($allSlides) }},
@@ -23,86 +27,85 @@
              this.currentSlide = (this.currentSlide - 1 + this.slidesCount) % this.slidesCount;
              $wire.goToSlide(this.currentSlide);
          },
-         handleTouchStart(e) {
-             this.touchStartX = e.changedTouches[0].screenX;
-         },
-         handleTouchEnd(e) {
-             this.touchEndX = e.changedTouches[0].screenX;
-             this.handleSwipe();
-         },
+         handleTouchStart(e) { this.touchStartX = e.changedTouches[0].screenX; },
+         handleTouchEnd(e) { this.touchEndX = e.changedTouches[0].screenX; this.handleSwipe(); },
          handleSwipe() {
              const diff = this.touchStartX - this.touchEndX;
-             if (diff > 50) {
-                 this.nextSlide();
-             } else if (diff < -50) {
-                 this.prevSlide();
-             }
+             if (diff > 50) { this.nextSlide(); } else if (diff < -50) { this.prevSlide(); }
          }
      }"
      @touchstart="handleTouchStart"
      @touchend="handleTouchEnd">
 
+    <!-- [UBAH] Elemen-elemen dekoratif untuk Frame HUD -->
+    <div class="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-green-400/50 z-20"></div>
+    <div class="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 border-green-400/50 z-20"></div>
+    <div class="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 border-green-400/50 z-20"></div>
+    <div class="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 border-green-400/50 z-20"></div>
+    <div class="absolute top-0 left-0 w-full p-3 font-mono text-xs text-green-400/50 z-20">[ TEKOMSS Mainframe // Status: Secure ]</div>
+
     @if(count($allSlides) > 0)
         <!-- Slides Container -->
         <div class="relative w-full h-full">
             @foreach($allSlides as $index => $slide)
+                <!-- [UBAH] Transisi diubah menjadi cross-fade yang lebih digital -->
                 <div x-show="currentSlide === {{ $index }}" 
                      x-transition:enter="transition ease-out duration-1000"
-                     x-transition:enter-start="opacity-0 transform"
-                     x-transition:enter-end="opacity-100 transform"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
                      x-transition:leave="transition ease-in duration-1000"
-                     x-transition:leave-start="opacity-100 transform"
-                     x-transition:leave-end="opacity-0 transform"
-                     :class="{
-                         'translate-x-0': currentSlide === {{ $index }},
-                         'translate-x-full': direction === 1 && currentSlide !== {{ $index }},
-                         '-translate-x-full': direction === -1 && currentSlide !== {{ $index }}
-                     }"
+                     x-transition:leave-start="opacity-100"
+                     x-transition:leave-end="opacity-0"
                      class="absolute inset-0">
                     
-                    <!-- Background Image with Parallax Effect -->
+                    <!-- Background Image -->
                     @if($slide['image_url'])
                         <div class="absolute inset-0 overflow-hidden">
+                            <!-- [UBAH] Gambar diberi efek tint hijau dan filter agar menyatu -->
                             <img src="{{ $slide['image_url'] }}" 
                                  alt="{{ $slide['title'] ?? 'Banner slide' }}"
-                                 class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-10000">
+                                 class="w-full h-full object-cover scale-105 filter saturate-0 contrast-125">
                         </div>
                     @else
-                        <!-- Gradient Fallback Background -->
-                        <div class="w-full h-full bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700"></div>
+                        <!-- Fallback Background -->
+                        <div class="w-full h-full bg-black"></div>
                     @endif
 
-                    <!-- Gradient Overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-                    <div class="absolute inset-0 bg-gradient-to-r from-black/30 to-black/10"></div>
+                    <!-- [UBAH] Overlay diubah menjadi kombinasi gradien dan pola scanline -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"></div>
+                    <div class="absolute inset-0 opacity-20" style="background: repeating-linear-gradient(0deg, rgba(0, 255, 0, 0.3), rgba(0, 255, 0, 0.3) 1px, transparent 1px, transparent 3px);"></div>
 
                     <!-- Content -->
-                    <div class="absolute inset-0 flex items-center justify-center px-6">
-                        <div class="text-center text-white max-w-4xl transform transition-all duration-1000 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                             x-bind:class="{
-                                 'translate-y-0 opacity-100': currentSlide === {{ $index }},
-                                 'translate-y-10 opacity-0': currentSlide !== {{ $index }}
-                             }">
-                            @if($slide['title'])
-                                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-2xl gradient-text animate-fade-in-up">
+                    <!-- [UBAH] Layout konten diubah menjadi di kiri bawah untuk gaya HUD -->
+                    <div class="absolute inset-0 flex items-end justify-start p-6 md:p-10">
+                        <div class="text-white max-w-2xl transform transition-all duration-1000 ease-out"
+                             x-show="currentSlide === {{ $index }}"
+                             x-transition:enter="transition ease-out duration-1000"
+                             x-transition:enter-start="opacity-0 translate-y-5"
+                             x-transition:enter-end="opacity-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-500"
+                             x-transition:leave-start="opacity-100"
+                             x-transition:leave-end="opacity-0">
+                            
+                            {{-- @if($slide['title'])
+                                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 font-mono text-green-300 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]">
                                     {{ $slide['title'] }}
                                 </h1>
-                            @endif
+                            @endif --}}
 
                             @if($slide['description'])
-                                <p class="text-xl md:text-2xl lg:text-3xl mb-10 opacity-90 drop-shadow-lg max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s">
+                                <p class="text-lg md:text-xl mb-8 opacity-80 max-w-xl">
                                     {{ $slide['description'] }}
                                 </p>
                             @endif
 
                             @if($slide['link_url'])
-                                <div class="animate-fade-in-up" style="animation-delay: 0.4s">
+                                <div>
+                                    <!-- [UBAH] Tombol didesain ulang menjadi tombol perintah -->
                                     <a href="{{ $slide['link_url'] }}" 
-                                       class="inline-flex items-center glass-effect hover-lift text-white font-semibold py-4 px-10 rounded-xl transition-all duration-300 hover:bg-white/30 border border-white/20">
-                                        {{ $slide['button_text'] ?? 'Learn More' }}
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-3 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                        </svg>
+                                       class="inline-flex items-center bg-green-500 text-black font-bold py-3 px-8 rounded-none hover:bg-green-400 transition-colors duration-300 group">
+                                        {{ $slide['button_text'] ?? 'EXECUTE' }}
+                                        <span class="font-mono text-lg ml-3 transition-transform duration-300 group-hover:translate-x-1">&gt;</span>
                                     </a>
                                 </div>
                             @endif
@@ -112,39 +115,28 @@
             @endforeach
         </div>
         
-        <!-- Progress Indicator -->
+        <!-- [UBAH] Progress Indicator didesain ulang -->
         @if(count($allSlides) > 1)
-            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            <div class="absolute bottom-4 right-4 flex flex-col space-y-2 z-20">
                 @foreach($allSlides as $index => $slide)
-                    <button @click="currentSlide = {{ $index }}; $wire.goToSlide({{ $index }}); direction = currentSlide > {{ $index }} ? -1 : 1;" 
-                            class="h-1.5 rounded-full transition-all duration-500 overflow-hidden"
+                    <button @click="currentSlide = {{ $index }}; $wire.goToSlide({{ $index }});" 
+                            class="w-6 h-1 rounded-sm transition-colors duration-300"
                             :class="{
-                                'bg-white/90 w-8': currentSlide === {{ $index }},
-                                'bg-white/30 hover:bg-white/50 w-4': currentSlide !== {{ $index }}
+                                'bg-green-400': currentSlide === {{ $index }},
+                                'bg-green-400/30 hover:bg-green-400/60': currentSlide !== {{ $index }}
                             }">
-                        <div x-show="currentSlide === {{ $index }}" 
-                             x-transition:enter="transition-all ease-linear duration-7000"
-                             x-transition:enter-start="width: 0%"
-                             x-transition:enter-end="width: 100%"
-                             class="h-full bg-white origin-left"
-                             style="display: none;"></div>
                     </button>
                 @endforeach
             </div>
         @endif
 
     @else
-        <!-- Fallback when no banners -->
-        <div class="w-full h-full bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700 flex items-center justify-center">
-            <div class="text-center text-white animate-fade-in-up">
-                <h2 class="text-5xl font-bold mb-6 gradient-text">Welcome to Our Website</h2>
-                <p class="text-xl opacity-90 mb-8">No banners available</p>
-                <a href="{{ route('home') }}" 
-                   class="inline-flex items-center glass-effect hover-lift text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300">
-                    Explore Website
-                </a>
+        <!-- Fallback disesuaikan dengan tema baru -->
+        <div class="w-full h-full bg-black flex items-center justify-center">
+            <div class="text-center text-green-300 font-mono animate-pulse">
+                <h2 class="text-4xl font-bold mb-4">[ NO SIGNAL ]</h2>
+                <p class="text-lg opacity-70">Awaiting data stream...</p>
             </div>
         </div>
     @endif
 </div>
-

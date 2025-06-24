@@ -10,6 +10,11 @@ class EditResource extends EditRecord
 {
     protected static string $resource = ResourceResource::class;
 
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
     protected function getHeaderActions(): array
     {
         return [

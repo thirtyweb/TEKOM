@@ -14,8 +14,8 @@ class HomePage extends Component
     {
         return view('livewire.frontend.home-page', [
             'banners' => Banner::active()->ordered()->get(),
-            'galleries' => Gallery::active()->get(),
-            'featuredArticles' => Article::published()->recent(6)->with(['category', 'author'])->get(),
+            'galleries' => Gallery::active()->latest()->take(3)->get(),
+            'featuredArticles' => Article::published()->recent(3)->with(['category', 'author'])->get(),
             'quoteOfTheDay' => Quote::active()->random()->first(),
         ]);
     }
