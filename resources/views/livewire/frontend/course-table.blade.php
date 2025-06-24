@@ -173,5 +173,29 @@
         </div>
     </div>
     
-    
+    <style>
+        .perspective-1000 {
+                perspective: 1000px;
+            }
+            .-rotate-x-1 {
+                transform: rotateX(-1deg);
+            }
+        
+            ::-webkit-scrollbar {
+                width: 1px;
+            }
+        
+            ::-webkit-scrollbar-track {
+                background: #1a1a1a; /* Dark track */
+            }
+        
+            ::-webkit-scrollbar-thumb {
+                background: #0f8f0f; /* Green thumb */
+                border-radius: 4px;
+            }
+        
+            ::-webkit-scrollbar-thumb:hover {
+                background: #0ad30a; /* Lighter green on hover */
+            }
+    </style>
 </div>

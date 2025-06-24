@@ -90,15 +90,14 @@
     <script>
         document.addEventListener('livewire:navigated', () => {
             AOS.init({
-                once: true, // Animation should happen only once - while scrolling down
-                mirror: false, // Elements should NOT animate out while scrolling past them
-                duration: 1000, // Default duration for AOS animations
-                easing: 'ease-out-quad', // Default easing for AOS animations
+                once: true, 
+                mirror: false,
+                duration: 1000, 
+                easing: 'ease-out-quad',
             });
-            AOS.refresh(); // Refresh AOS when Livewire navigation occurs to detect new elements
+            AOS.refresh();
         });
     
-        // Also initialize on initial page load (for first visit or hard refresh)
         document.addEventListener('DOMContentLoaded', () => {
             AOS.init({
                 once: true,
@@ -110,12 +109,10 @@
     </script>
     
     <style>
-        /* Custom Tailwind utility for text glow */
         .text-shadow-glow {
             text-shadow: 0 0 8px rgba(0, 255, 0, 0.6), 0 0 15px rgba(0, 255, 0, 0.3);
         }
     
-        /* Pulse animation for the small text and quote icon */
         .animate-pulse {
             animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
@@ -128,7 +125,6 @@
             }
         }
     
-        /* Shine effect for section titles */
         .animate-shine {
             animation: shine 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
@@ -141,17 +137,16 @@
             }
         }
     
-        /* Custom scrollbar for a futuristic feel (optional) */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 1px;
         }
     
         ::-webkit-scrollbar-track {
-            background: #1a1a1a; /* Dark track */
+            background: #1a1a1a;
         }
     
         ::-webkit-scrollbar-thumb {
-            background: #0f8f0f; /* Green thumb */
+            background: #0f8f0f;
             border-radius: 4px;
         }
     

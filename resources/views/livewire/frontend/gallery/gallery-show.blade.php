@@ -133,21 +133,29 @@
             @endif
         </div>
         
-        <!-- [UBAH] Styles untuk custom scrollbar di tema gelap -->
         <style>
-            .scrollbar-thin::-webkit-scrollbar {
-                height: 6px;
-            }
-            .scrollbar-thin::-webkit-scrollbar-track {
-                background: rgba(0, 255, 0, 0.05);
-                border-radius: 3px;
-            }
-            .scrollbar-thin::-webkit-scrollbar-thumb {
-                background: rgba(0, 255, 0, 0.2);
-                border-radius: 3px;
-            }
-            .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-                background: rgba(0, 255, 0, 0.4);
-            }
+            .perspective-1000 {
+                    perspective: 1000px;
+                }
+                .-rotate-x-1 {
+                    transform: rotateX(-1deg);
+                }
+            
+                ::-webkit-scrollbar {
+                    width: 0.5px;
+                }
+            
+                ::-webkit-scrollbar-track {
+                    background: #1a1a1a; /* Dark track */
+                }
+            
+                ::-webkit-scrollbar-thumb {
+                    background: #0f8f0f; /* Green thumb */
+                    border-radius: 4px;
+                }
+            
+                ::-webkit-scrollbar-thumb:hover {
+                    background: #0ad30a; /* Lighter green on hover */
+                }
         </style>
     </div>
