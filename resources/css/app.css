@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+
+.prose .shiki {
+  @apply !bg-transparent p-0 my-6; /* Hapus background & padding dari prose, tapi pertahankan margin */
+}
+
+.prose .shiki code {
+  @apply !text-inherit; /* Biarkan warna teks diatur oleh span dari Shiki */
+}

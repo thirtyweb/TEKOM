@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use DOMDocument; // <-- Tambahkan ini
 
 class Article extends Model
 {
@@ -50,25 +51,40 @@ class Article extends Model
             : $value;
     }
 
-    protected static function boot()
+    protected static function booted(): void
     {
-        parent::boot();
+        parent::booted();
 
-        static::creating(function ($article) {
-            if (empty($article->slug)) {
-                $article->slug = Str::slug($article->title);
+        static::deleted(function (Article $article) {
+            // 1. Hapus featured_image jika ada
+            if (!empty($article->featured_image)) {
+                if (Storage::disk('public')->exists($article->featured_image)) {
+                    Storage::disk('public')->delete($article->featured_image);
+                }
             }
 
-            // Auto set published_at when status is published and published_at is empty
-            if ($article->status === 'published' && !$article->published_at) {
-                $article->published_at = now();
-            }
-        });
+            // 2. Hapus gambar dari content (Rich Editor)
+            if (!empty($article->content)) {
+                $dom = new DOMDocument();
+                // Gunakan @ untuk menekan error dari HTML yang mungkin tidak valid
+                @$dom->loadHTML($article->content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+                
+                $images = $dom->getElementsByTagName('img');
 
-        static::updating(function ($article) {
-            // Auto set published_at when status changes to published
-            if ($article->status === 'published' && !$article->published_at) {
-                $article->published_at = now();
+                foreach ($images as $img) {
+                    $src = $img->getAttribute('src');
+
+                    // Jika src berisi '/storage/', maka itu adalah file lokal kita
+                    if (Str::contains($src, '/storage/')) {
+                        // Ubah URL lengkap menjadi path relatif di dalam storage
+                        // Contoh: /storage/articles/gambar.jpg -> articles/gambar.jpg
+                        $path = Str::after($src, '/storage/');
+
+                        if (Storage::disk('public')->exists($path)) {
+                            Storage::disk('public')->delete($path);
+                        }
+                    }
+                }
             }
         });
     }

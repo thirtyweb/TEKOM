@@ -1,25 +1,18 @@
-<!-- 
-    File ini bisa Anda gunakan untuk menggantikan konten halaman Daftar Artikel Anda.
-    Semua fungsionalitas Livewire dan Blade tetap sama, hanya kelas CSS yang diubah.
--->
 <div>
-    <!-- [UBAH] Latar belakang diubah agar menyatu dengan tema gelap -->
     <div class="min-h-screen pt-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header -->
+            {{-- Header --}}
             <div class="mb-8 md:mb-12">
-                <!-- [UBAH] Judul menggunakan font-mono dan warna neon -->
                 <h1 class="text-3xl md:text-4xl font-bold font-mono text-green-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]">
-                    &gt; INTEL_DATABASE
+                    &gt; ALL ARTICLES 
                 </h1>
                 <p class="text-gray-500 mt-2">Akses dan filter semua log data yang telah didekripsi.</p>
             </div>
-            
-            <!-- Filter & Search -->
-            <!-- [UBAH] Panel filter didesain ulang menjadi "Query Interface" -->
+
+            {{-- Filter & Search --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 p-4 border border-gray-800 bg-gray-900/40 rounded-lg">
                 <div class="md:col-span-1">
-                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Filter by keyword..." 
+                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Filter by keyword..."
                            class="w-full px-4 py-2 border border-slate-700 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-slate-800 text-gray-300 placeholder-gray-500">
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:col-span-2 gap-4">
@@ -36,12 +29,12 @@
                     </select>
                 </div>
             </div>
-        
-        <!-- Articles Grid -->
+
+        {{-- Articles Grid --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($articles as $article)
-                <!-- [UBAH] Menggunakan desain kartu artikel yang konsisten dengan homepage -->
-                <article wire:key="article-{{ $article->id }}" 
+                {{-- [UBAH] Menggunakan desain kartu artikel yang konsisten dengan homepage --}}
+                <article wire:key="article-{{ $article->id }}"
                          class="group flex flex-col bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden hover:border-green-500/50 transition-colors duration-300">
                     @if ($article->featured_image)
                         <div class="aspect-[16/9] overflow-hidden relative">
@@ -70,13 +63,13 @@
                                 {{ $article->title }}
                             </a>
                         </h3>
-                        
+
                         @if($article->excerpt)
                             <p class="text-gray-400 text-sm mb-4 line-clamp-2">
                                 {{ Str::limit($article->excerpt, 100) }}
                             </p>
                         @endif
-                        
+
                         <div class="mt-auto pt-4 border-t border-gray-800 flex items-center justify-between text-xs text-gray-500 font-mono">
                             <span>SOURCE: {{ $article->author->name }}</span>
                             <span>DATE: {{ $article->published_at->format('Y-m-d') }}</span>
@@ -97,8 +90,8 @@
                 </div>
             @endforelse
         </div>
-        
-        <!-- Pagination -->
+
+        {{-- Pagination --}}
         @if ($articles->hasPages())
             <div class="mt-8">
                 {{ $articles->links() }}
@@ -106,7 +99,7 @@
         @endif
     </div>
 
-    <!-- [BARU] Custom Styles untuk pagination di tema gelap -->
+    {{-- [BARU] Custom Styles untuk pagination di tema gelap --}}
     <style>
         .perspective-1000 {
                 perspective: 1000px;
@@ -114,27 +107,27 @@
             .-rotate-x-1 {
                 transform: rotateX(-1deg);
             }
-        
+
             ::-webkit-scrollbar {
                 width: 1px;
             }
-        
+
             ::-webkit-scrollbar-track {
                 background: #1a1a1a; /* Dark track */
             }
-        
+
             ::-webkit-scrollbar-thumb {
                 background: #0f8f0f; /* Green thumb */
                 border-radius: 4px;
             }
-        
+
             ::-webkit-scrollbar-thumb:hover {
                 background: #0ad30a; /* Lighter green on hover */
             }
         .pagination {
             @apply flex justify-center space-x-1;
         }
-        .pagination .page-link, 
+        .pagination .page-link,
         .pagination .page-item.disabled .page-link,
         .pagination .page-item .page-link[rel='next'],
         .pagination .page-item .page-link[rel='prev'] {

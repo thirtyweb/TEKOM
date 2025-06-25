@@ -4,12 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage; // <-- Tambahkan ini
 
 class Category extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'name',
         'slug',
@@ -18,21 +23,27 @@ class Category extends Model
         'is_active',
     ];
 
-    protected $casts = [
-        'is_active' => 'boolean',
-    ];
-
-    protected static function boot()
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted(): void
     {
-        parent::boot();
-        
-        static::creating(function ($category) {
-            if (empty($category->slug)) {
-                $category->slug = Str::slug($category->name);
+        parent::booted();
+
+        // Event ini akan terpanggil SETELAH record dihapus dari database
+        static::deleted(function (Category $category) {
+            // Cek jika kategori memiliki gambar
+            if ($category->image) {
+                // Hapus file dari storage.
+                // 'public' adalah nama disk yang mengarah ke storage/app/public
+                Storage::disk('public')->delete($category->image);
             }
         });
     }
 
+    // Definisikan relasi ke articles jika belum ada
     public function articles()
     {
         return $this->hasMany(Article::class);

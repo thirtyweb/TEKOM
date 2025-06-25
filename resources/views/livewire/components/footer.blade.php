@@ -1,17 +1,17 @@
 <div>
     <footer class="bg-gradient-to-b from-black/60 to-black border-t-2 border-green-500/20 pt-16 pb-8 mt-24 shadow-[0_-10px_30px_rgba(0,255,0,0.05)] relative overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-5" style="background: repeating-linear-gradient(0deg, rgba(0,255,0,0.02) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(90deg, rgba(0,255,0,0.02) 1px, transparent 1px, transparent 10px);"></div>
-        
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 lg:gap-12">
-    
+
                 <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0">
                     <h3 class="font-mono text-lg font-bold text-green-300 mb-4 tracking-wider relative group">
-                        <span class="inline-block relative z-10">&gt; NODE_INFO</span>
+                        <span class="inline-block relative z-10">&gt; ABOUT US</span>
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                     </h3>
                     <p class="text-gray-400 text-sm leading-relaxed border-l-2 border-green-700/50 pl-3">Program studi Teknologi Rekayasa Komputer berfokus pada rekayasa cerdas sistem komputer. Kami mengembangkan inovasi modern dan menerapkannya untuk pengabdian masyarakat.</p>
-    
+
                     <div class="mt-6 flex space-x-5">
                         <a wire:navigate href="#" class="text-gray-500 hover:text-green-400 transition-all duration-300 transform hover:scale-125 hover:rotate-3">
                             <i class="fab fa-facebook-f text-lg drop-shadow-[0_0_5px_rgba(0,255,0,0.3)]"></i>
@@ -27,10 +27,10 @@
                         </a>
                     </div>
                 </div>
-    
+
                 <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
                     <h3 class="font-mono text-lg font-bold text-green-300 mb-4 tracking-wider relative group">
-                        <span class="inline-block relative z-10">// DIRECTORIES</span>
+                        <span class="inline-block relative z-10">// QUICK LINKS</span>
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                     </h3>
                     <ul class="space-y-3 text-sm">
@@ -52,10 +52,10 @@
                         </a></li>
                     </ul>
                 </div>
-    
+
                 <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
                     <h3 class="font-mono text-lg font-bold text-green-300 mb-4 tracking-wider relative group">
-                        <span class="inline-block relative z-10">// COMMS_LINK</span>
+                        <span class="inline-block relative z-10">// CONTACT</span>
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                     </h3>
                     <ul class="space-y-3 text-gray-400 text-sm">
@@ -73,10 +73,10 @@
                         </li>
                     </ul>
                 </div>
-    
+
                 <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="450">
                     <h3 class="font-mono text-lg font-bold text-green-300 mb-4 tracking-wider relative group">
-                        <span class="inline-block relative z-10">// CORE_PROTOCOL</span>
+                        <span class="inline-block relative z-10">// INSPIRATION</span>
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                     </h3>
                     <div class="border border-gray-800 bg-gray-900/40 p-4 rounded-md shadow-inner-lg shadow-green-900/20 backdrop-blur-sm">
@@ -84,14 +84,14 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="border-t border-gray-800 mt-10 pt-8 text-center text-gray-600 text-xs font-mono relative">
-                <p>&copy; {{ date('Y') }} TEKOMSS Data Hub // All rights reserved // Ahdi Kevin Rizki</p>
+                <p>&copy; {{ date('Y') }} TEKOMSS Data Hub // All rights reserved // TIM TEKOM</p>
                 <span class="absolute right-1/2 translate-x-1/2 bottom-5 w-2 h-3 bg-green-500 animate-flicker"></span>
             </div>
         </div>
     </footer>
-    
+
     <style>
         /* For the flickering cursor effect */
         @keyframes flicker {
@@ -101,13 +101,13 @@
         .animate-flicker {
             animation: flicker 1.2s infinite step-end;
         }
-    
+
         /* Custom shadow for inner effect */
         .shadow-inner-lg {
             box-shadow: inset 0 2px 10px rgba(0, 255, 0, 0.1), inset 0 -2px 10px rgba(0, 255, 0, 0.1);
         }
     </style>
-    
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -120,7 +120,7 @@
             });
             AOS.refresh();
         });
-    
+
         document.addEventListener('DOMContentLoaded', () => {
             AOS.init({
                 once: true,

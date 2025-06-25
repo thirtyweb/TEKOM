@@ -11,12 +11,12 @@
                             <span class="text-xl font-bold font-mono text-green-300 group-hover:text-green-400 group-hover:drop-shadow-[0_0_5px_rgba(52,211,153,0.7)] transition-all duration-300">TEKOMSS</span>
                         </a>
                     </div>
-    
+
                     <div class="hidden md:flex items-center space-x-8">
                         <a wire:navigate href="{{ route('home') }}" class="font-mono text-sm text-gray-300 hover:text-green-300 transition-colors duration-200 tracking-wider">
                             // BERANDA
                         </a>
-    
+
                         <div class="relative group">
                             <button class="flex items-center font-mono text-sm text-gray-300 hover:text-green-300 transition-colors duration-200 tracking-wider">
                                 <span>// ARTIKEL</span>
@@ -33,13 +33,13 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <a wire:navigate href="{{ route('gallery.index') }}" class="font-mono text-sm text-gray-300 hover:text-green-300 transition-colors duration-200 tracking-wider">// GALERI</a>
                         <a wire:navigate href="{{ route('resources.index') }}" class="font-mono text-sm text-gray-300 hover:text-green-300 transition-colors duration-200 tracking-wider">// RESOURCE</a>
                         <a wire:navigate href="{{ route('courses.index') }}" class="font-mono text-sm text-gray-300 hover:text-green-300 transition-colors duration-200 tracking-wider">// COURSES</a>
                         <a wire:navigate href="{{ route('faq.index') }}" class="font-mono text-sm text-gray-300 hover:text-green-300 transition-colors duration-200 tracking-wider">// FAQ</a>
                     </div>
-    
+
                     <div class="md:hidden">
                         <button id="mobileMenuButton" class="text-green-300 hover:text-green-400 focus:outline-none transition-colors duration-200">
                             <svg id="hamburgerIcon" class="h-6 w-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,13 +52,13 @@
                     </div>
                 </div>
             </div>
-    
+
             <div id="mobileMenu" class="md:hidden hidden bg-gray-900/95 backdrop-blur-lg border-t border-green-400/20">
                 <div class="px-2 pt-2 pb-3 space-y-1">
                     <a wire:navigate href="{{ route('home') }}" class="block px-3 py-2 font-mono text-sm text-gray-300 hover:text-green-300 hover:bg-green-500/10 rounded-md transition-colors duration-200 tracking-wider">
                         // BERANDA
                     </a>
-                    
+
                     <div class="relative">
                         <button id="mobileArtikelButton" class="w-full flex items-center justify-between px-3 py-2 font-mono text-sm text-gray-300 hover:text-green-300 hover:bg-green-500/10 rounded-md transition-colors duration-200 tracking-wider">
                             <span>// ARTIKEL</span>
@@ -73,7 +73,7 @@
                             @endforeach
                         </div>
                     </div>
-                    
+
                     <a wire:navigate href="{{ route('gallery.index') }}" class="block px-3 py-2 font-mono text-sm text-gray-300 hover:text-green-300 hover:bg-green-500/10 rounded-md transition-colors duration-200 tracking-wider">
                         // GALERI
                     </a>
@@ -89,13 +89,13 @@
                 </div>
             </div>
         </nav>
-        
+
     </div>
     <script>
         // Wrap dalam IIFE untuk mencegah konflik dengan Livewire
         (function() {
             'use strict';
-            
+
             function initializeMobileMenu() {
                 const mobileMenuButton = document.getElementById('mobileMenuButton');
                 const mobileMenu = document.getElementById('mobileMenu');
@@ -104,25 +104,25 @@
                 const mobileArtikelButton = document.getElementById('mobileArtikelButton');
                 const mobileArtikelDropdown = document.getElementById('mobileArtikelDropdown');
                 const mobileArtikelIcon = document.getElementById('mobileArtikelIcon');
-                
+
                 // Check if elements exist before adding event listeners
                 if (!mobileMenuButton || !mobileMenu) return;
-                
+
                 // Remove existing event listeners jika ada
                 mobileMenuButton.replaceWith(mobileMenuButton.cloneNode(true));
                 if (mobileArtikelButton) {
                     mobileArtikelButton.replaceWith(mobileArtikelButton.cloneNode(true));
                 }
-                
+
                 // Get fresh references after cloning
                 const newMobileMenuButton = document.getElementById('mobileMenuButton');
                 const newMobileArtikelButton = document.getElementById('mobileArtikelButton');
-                
+
                 // Mobile menu toggle
                 newMobileMenuButton.addEventListener('click', function(e) {
                     e.preventDefault();
                     const isHidden = mobileMenu.classList.contains('hidden');
-                    
+
                     if (isHidden) {
                         mobileMenu.classList.remove('hidden');
                         if (hamburgerIcon) hamburgerIcon.classList.add('hidden');
@@ -133,13 +133,13 @@
                         if (closeIcon) closeIcon.classList.add('hidden');
                     }
                 });
-                
+
                 // Mobile artikel dropdown
                 if (newMobileArtikelButton && mobileArtikelDropdown && mobileArtikelIcon) {
                     newMobileArtikelButton.addEventListener('click', function(e) {
                         e.preventDefault();
                         const isHidden = mobileArtikelDropdown.classList.contains('hidden');
-                        
+
                         if (isHidden) {
                             mobileArtikelDropdown.classList.remove('hidden');
                             mobileArtikelIcon.style.transform = 'rotate(180deg)';
@@ -150,7 +150,7 @@
                     });
                 }
             }
-            
+
             // Close mobile menu when clicking outside
             function handleOutsideClick(event) {
                 const mobileMenu = document.getElementById('mobileMenu');
@@ -158,9 +158,9 @@
                 const closeIcon = document.getElementById('closeIcon');
                 const mobileArtikelDropdown = document.getElementById('mobileArtikelDropdown');
                 const mobileArtikelIcon = document.getElementById('mobileArtikelIcon');
-                
+
                 if (!mobileMenu) return;
-                
+
                 const isClickInsideNav = event.target.closest('nav');
                 if (!isClickInsideNav && !mobileMenu.classList.contains('hidden')) {
                     mobileMenu.classList.add('hidden');
@@ -170,7 +170,7 @@
                     if (mobileArtikelIcon) mobileArtikelIcon.style.transform = 'rotate(0deg)';
                 }
             }
-            
+
             // Close mobile menu when window is resized to desktop
             function handleResize() {
                 if (window.innerWidth >= 768) {
@@ -179,7 +179,7 @@
                     const closeIcon = document.getElementById('closeIcon');
                     const mobileArtikelDropdown = document.getElementById('mobileArtikelDropdown');
                     const mobileArtikelIcon = document.getElementById('mobileArtikelIcon');
-                    
+
                     if (mobileMenu) mobileMenu.classList.add('hidden');
                     if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
                     if (closeIcon) closeIcon.classList.add('hidden');
@@ -187,17 +187,17 @@
                     if (mobileArtikelIcon) mobileArtikelIcon.style.transform = 'rotate(0deg)';
                 }
             }
-            
+
             // Initialize on DOM ready
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', initializeMobileMenu);
             } else {
                 initializeMobileMenu();
             }
-            
+
             // Re-initialize after Livewire navigation
             document.addEventListener('livewire:navigated', initializeMobileMenu);
-            
+
             // Clear any intervals that might be running
             document.addEventListener('livewire:navigating', function() {
                 // Clear any running intervals to prevent errors
@@ -207,14 +207,14 @@
                     }
                 }, 0);
             });
-            
+
             // Global event listeners
             document.removeEventListener('click', handleOutsideClick);
             document.addEventListener('click', handleOutsideClick);
-            
+
             window.removeEventListener('resize', handleResize);
             window.addEventListener('resize', handleResize);
-            
+
         })();
     </script>
 </div>

@@ -3,8 +3,8 @@
         <div class="min-h-screen pt-8">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-8">
-                    <h1 class="font-mono text-4xl font-bold text-green-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]">// DAFTAR_MATA_KULIAH</h1>
-                    <p class="text-gray-400 mt-2">Menjelajahi kurikulum departemen secara interaktif.</p>
+                    <h1 class="font-mono text-4xl font-bold text-green-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]">// COURSE LIST</h1>
+                    <p class="text-gray-400 mt-2">Menjelajahi kurikulum secara interaktif.</p>
                 </div>
         
                 <div class="bg-gray-900/40 backdrop-blur-sm rounded-lg shadow-lg p-6 mb-8 border border-green-500/20">
@@ -179,23 +179,6 @@
             }
             .-rotate-x-1 {
                 transform: rotateX(-1deg);
-            }
-        
-            ::-webkit-scrollbar {
-                width: 1px;
-            }
-        
-            ::-webkit-scrollbar-track {
-                background: #1a1a1a; /* Dark track */
-            }
-        
-            ::-webkit-scrollbar-thumb {
-                background: #0f8f0f; /* Green thumb */
-                border-radius: 4px;
-            }
-        
-            ::-webkit-scrollbar-thumb:hover {
-                background: #0ad30a; /* Lighter green on hover */
             }
     </style>
 </div>

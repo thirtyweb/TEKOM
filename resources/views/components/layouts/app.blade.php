@@ -7,11 +7,13 @@
     <title>{{ $title ?? 'TRK' }}</title>
     <meta name="description" content="@yield('description', 'Website resmi departemen TEKOMSS')">
 
-    <!-- Font & Icons -->
+    {{-- Font & Icons --}}
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code:wght@400;600&display=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+    {{-- KODE HIGHLIGHT.JS DIHAPUS DARI SINI --}}
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -76,7 +78,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #0d1117;
         }
-        
+
 
         #main-website-container.active {
             display: block;
@@ -94,11 +96,11 @@
 
 <body class="antialiased">
 
-    <!-- ===== CONTAINER UNTUK HACKING SIMULATOR ===== -->
+    {{-- ===== CONTAINER UNTUK HACKING SIMULATOR ===== --}}
     <div id="hacking-simulator-container">
         <div id="terminal" class="rounded-lg shadow-2xl">
             <div id="output"></div>
-            <div class="flex items-center mt-4">
+            <div class="flex items-start mt-4">
                 <span class="text-green-400">root@tekomss:~#</span>
                 <span id="command-line" class="ml-2 text-blue-400"></span>
                 <span class="cursor"></span>
@@ -106,7 +108,7 @@
         </div>
     </div>
 
-    <!-- ===== CONTAINER UNTUK WEBSITE UTAMA ANDA ===== -->
+    {{-- ===== CONTAINER UNTUK WEBSITE UTAMA ANDA ===== --}}
     <div id="main-website-container">
         <header>
             <livewire:components.navigation />
@@ -118,8 +120,6 @@
             <livewire:components.footer />
         </footer>
     </div>
-
-   
 
 
 
@@ -168,7 +168,7 @@
                     }, 50);
                 }
 
-                // [FIX] Mengembalikan urutan "peretasan" yang lebih detail
+                {{-- [FIX] Mengembalikan urutan "peretasan" yang lebih detail --}}
                 async function startHacking(target) {
                     const steps = [{
                             msg: `[+] Initiating connection to target: ${target}`,
@@ -223,9 +223,9 @@
                     });
                 }
 
-                // [FIX] Memastikan startHacking dipanggil setelah animasi mengetik
-                typeEffect(commandLine, 'php artisan serve --host=tekomss.edu', () => {
-                    startHacking('tekomss.edu');
+                {{-- [FIX] Memastikan startHacking dipanggil setelah animasi mengetik --}}
+                typeEffect(commandLine, 'Run Server Tekomss.ipb.ac.id', () => {
+                    startHacking('tekomss.ac.id');
                 });
             }
         });

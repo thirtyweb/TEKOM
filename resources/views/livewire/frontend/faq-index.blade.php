@@ -24,7 +24,7 @@
                     <div class="w-3 h-3 bg-green-500 rounded-full"></div>
                     <p class="ml-auto text-xs text-gray-400">user@tekom: ~/faq</p>
                 </div>
-                
+
                 <div class="p-4 sm:p-6" x-ref="terminalBody">
                     <div class="space-y-6 mb-8">
                         <div>
@@ -95,7 +95,7 @@
                                 </form>
                             @endif </div>
                     </div>
-                    
+
                     <div class="mt-6" x-show="!showForm">
                         <div class="flex gap-2 items-center">
                             <span class="text-green-400">$</span>
@@ -114,20 +114,20 @@
             .-rotate-x-1 {
                 transform: rotateX(-1deg);
             }
-        
+
             ::-webkit-scrollbar {
                 width: 0.5px;
             }
-        
+
             ::-webkit-scrollbar-track {
                 background: #1a1a1a; /* Dark track */
             }
-        
+
             ::-webkit-scrollbar-thumb {
                 background: #0f8f0f; /* Green thumb */
                 border-radius: 4px;
             }
-        
+
             ::-webkit-scrollbar-thumb:hover {
                 background: #0ad30a; /* Lighter green on hover */
             }

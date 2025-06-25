@@ -9,7 +9,10 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
+
 
 class CategoryResource extends Resource
 {
@@ -53,11 +56,25 @@ class CategoryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->after(function (Category $record) {
+                        // Hapus file setelah record dihapus
+                        if ($record->image) {
+                            Storage::disk('public')->delete($record->image);
+                        }
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->after(function (Collection $records) {
+                            // Loop untuk setiap record yang dihapus
+                            foreach ($records as $record) {
+                                if ($record->image) {
+                                    Storage::disk('public')->delete($record->image);
+                                }
+                            }
+                        }),
                 ]),
             ]);
     }

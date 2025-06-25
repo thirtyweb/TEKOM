@@ -43,7 +43,7 @@
     @if(count($allSlides) > 0)
         <div class="relative w-full h-full">
             @foreach($allSlides as $index => $slide)
-                <div x-show="currentSlide === {{ $index }}" 
+                <div x-show="currentSlide === {{ $index }}"
                      x-transition:enter="transition ease-out duration-1000"
                      x-transition:enter-start="opacity-0"
                      x-transition:enter-end="opacity-100"
@@ -51,10 +51,10 @@
                      x-transition:leave-start="opacity-100"
                      x-transition:leave-end="opacity-0"
                      class="absolute inset-0">
-                    
+
                     @if($slide['image_url'])
                         <div class="absolute inset-0 overflow-hidden">
-                            <img src="{{ $slide['image_url'] }}" 
+                            <img src="{{ $slide['image_url'] }}"
                                  alt="{{ $slide['title'] ?? 'Banner slide' }}"
                                  class="w-full h-full object-cover scale-110 group-hover:scale-105 filter saturate-0 contrast-125 transition-all duration-[8000ms] ease-in-out"
                                  :class="{ 'animate-pan-zoom': currentSlide === {{ $index }} }" >
@@ -75,13 +75,13 @@
                              x-transition:leave="transition ease-in duration-500"
                              x-transition:leave-start="opacity-100"
                              x-transition:leave-end="opacity-0">
-                            
+
                             @if($slide['title'])
                                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 font-mono text-green-300 drop-shadow-[0_0_15px_rgba(52,211,153,0.7)] animate-glitch">
                                     {{ $slide['title'] }}
                                 </h1>
                             @endif
-                            
+
                             @if($slide['description'])
                                 <p class="text-lg md:text-xl mb-8 opacity-80 max-w-xl mx-auto">
                                     {{ $slide['description'] }}
@@ -90,7 +90,7 @@
 
                             @if($slide['link_url'])
                                 <div>
-                                    <a wire:navigate href="{{ $slide['link_url'] }}" 
+                                    <a wire:navigate href="{{ $slide['link_url'] }}"
                                        class="inline-flex items-center bg-green-500 text-black font-bold py-3 px-8 rounded-none hover:bg-green-400 transition-colors duration-300 group relative overflow-hidden">
                                         <span class="relative z-10">{{ $slide['button_text'] ?? 'EXECUTE' }}</span>
                                         <span class="font-mono text-lg ml-3 transition-transform duration-300 group-hover:translate-x-1 relative z-10">&gt;</span>
@@ -103,11 +103,11 @@
                 </div>
             @endforeach
         </div>
-        
+
         @if(count($allSlides) > 1)
             <div class="absolute bottom-4 left-4 flex space-x-2 z-20">
                 @foreach($allSlides as $index => $slide)
-                    <button @click="currentSlide = {{ $index }}; $wire.goToSlide({{ $index }});" 
+                    <button @click="currentSlide = {{ $index }}; $wire.goToSlide({{ $index }});"
                             class="w-6 h-1 rounded-sm transition-colors duration-300"
                             :class="{
                                 'bg-green-400 w-8': currentSlide === {{ $index }}, /* Slightly wider when active */
