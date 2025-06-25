@@ -12,7 +12,7 @@ class Question extends Model
     /**
      * Secara eksplisit mendefinisikan nama tabel yang digunakan oleh model ini.
      */
-    protected $table = 'user_questions'; // <--- TAMBAHKAN BARIS INI
+    protected $table = 'user_questions'; 
 
     protected $fillable = [
         'name',

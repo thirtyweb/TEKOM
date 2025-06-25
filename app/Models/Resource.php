@@ -37,11 +37,8 @@ class Resource extends Model
             }
         });
 
-        // Add this deleting event listener
         static::deleting(function ($resource) {
-            // Check if file_path exists and is not null
             if ($resource->file_path) {
-                // Delete the file from the 'public' disk within the 'resources' directory
                 Storage::disk('public')->delete($resource->file_path);
             }
         });

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->nullable();
             $table->text('question');
-            $table->string('status')->default('pending'); // Status: pending, answered
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

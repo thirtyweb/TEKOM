@@ -32,18 +32,13 @@ class Category extends Model
     {
         parent::booted();
 
-        // Event ini akan terpanggil SETELAH record dihapus dari database
         static::deleted(function (Category $category) {
-            // Cek jika kategori memiliki gambar
             if ($category->image) {
-                // Hapus file dari storage.
-                // 'public' adalah nama disk yang mengarah ke storage/app/public
                 Storage::disk('public')->delete($category->image);
             }
         });
     }
 
-    // Definisikan relasi ke articles jika belum ada
     public function articles()
     {
         return $this->hasMany(Article::class);

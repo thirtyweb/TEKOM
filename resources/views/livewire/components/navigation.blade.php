@@ -92,7 +92,6 @@
 
     </div>
     <script>
-        // Wrap dalam IIFE untuk mencegah konflik dengan Livewire
         (function() {
             'use strict';
 
@@ -198,9 +197,7 @@
             // Re-initialize after Livewire navigation
             document.addEventListener('livewire:navigated', initializeMobileMenu);
 
-            // Clear any intervals that might be running
             document.addEventListener('livewire:navigating', function() {
-                // Clear any running intervals to prevent errors
                 const highestId = window.setTimeout(() => {
                     for (let i = highestId; i >= 0; i--) {
                         window.clearInterval(i);

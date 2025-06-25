@@ -35,13 +35,11 @@ class FaqIndex extends Component
 
     public function render()
     {
-        // Ambil data FAQ resmi
         $officialFaqs = Faq::active()->ordered()->get();
         $officialFaqs->each(function ($faq) {
             $faq->key = 'faq-' . $faq->getKey();
         });
 
-        // Ambil pertanyaan yang sudah dijawab admin
         $answeredQuestions = Question::where('status', 'answered')
             ->whereNotNull('answer')
             ->latest()
@@ -50,18 +48,13 @@ class FaqIndex extends Component
             $question->key = 'uq-' . $question->getKey();
         });
         
-        // Gabungkan semua FAQ
         $allFaqs = $officialFaqs->toBase()->merge($answeredQuestions)->sortByDesc('created_at');
 
-        // [2] AMBIL SATU QUOTE SECARA ACAK
-        // Jika Anda tidak punya model Quote, Anda bisa menonaktifkan baris ini
-        // dan baris 'quote' => $quote di bawah untuk sementara.
         $quote = Quote::inRandomOrder()->first();
 
-        // [3] KIRIM SEMUA DATA KE VIEW
         return view('livewire.frontend.faq-index', [
             'faqs' => $allFaqs,
-            'quote' => $quote, // <-- Variabel $quote sekarang dikirim ke view
+            'quote' => $quote, 
         ]);
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use DOMDocument; // <-- Tambahkan ini
+use DOMDocument; 
 
 class Article extends Model
 {
@@ -56,17 +56,14 @@ class Article extends Model
         parent::booted();
 
         static::deleted(function (Article $article) {
-            // 1. Hapus featured_image jika ada
             if (!empty($article->featured_image)) {
                 if (Storage::disk('public')->exists($article->featured_image)) {
                     Storage::disk('public')->delete($article->featured_image);
                 }
             }
 
-            // 2. Hapus gambar dari content (Rich Editor)
             if (!empty($article->content)) {
                 $dom = new DOMDocument();
-                // Gunakan @ untuk menekan error dari HTML yang mungkin tidak valid
                 @$dom->loadHTML($article->content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
                 
                 $images = $dom->getElementsByTagName('img');
@@ -74,10 +71,7 @@ class Article extends Model
                 foreach ($images as $img) {
                     $src = $img->getAttribute('src');
 
-                    // Jika src berisi '/storage/', maka itu adalah file lokal kita
                     if (Str::contains($src, '/storage/')) {
-                        // Ubah URL lengkap menjadi path relatif di dalam storage
-                        // Contoh: /storage/articles/gambar.jpg -> articles/gambar.jpg
                         $path = Str::after($src, '/storage/');
 
                         if (Storage::disk('public')->exists($path)) {
@@ -133,7 +127,7 @@ class Article extends Model
     public function getReadingTimeAttribute()
     {
         $wordCount = str_word_count(strip_tags($this->content));
-        $readingTime = ceil($wordCount / 200); // Average reading speed
+        $readingTime = ceil($wordCount / 200); 
         return $readingTime;
     }
 }

@@ -1,5 +1,4 @@
 <?php
-// app/Filament/Resources/CategoryResource.php
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
@@ -58,7 +57,6 @@ class CategoryResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
                     ->after(function (Category $record) {
-                        // Hapus file setelah record dihapus
                         if ($record->image) {
                             Storage::disk('public')->delete($record->image);
                         }
@@ -68,7 +66,6 @@ class CategoryResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
                         ->after(function (Collection $records) {
-                            // Loop untuk setiap record yang dihapus
                             foreach ($records as $record) {
                                 if ($record->image) {
                                     Storage::disk('public')->delete($record->image);

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('file_path')->nullable();
-            $table->string('file_type')->nullable(); // pdf, doc, etc
-            $table->integer('file_size')->nullable(); // in bytes
+            $table->string('file_type')->nullable(); 
+            $table->integer('file_size')->nullable(); 
             $table->string('download_url')->nullable();
             $table->integer('download_count')->default(0);
             $table->boolean('is_active')->default(true);

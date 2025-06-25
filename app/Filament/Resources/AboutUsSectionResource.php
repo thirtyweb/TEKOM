@@ -14,9 +14,9 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\Card; // Opsional, jika ingin pakai Card
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\RichEditor; // Opsional, jika ingin editor kaya teks
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -26,8 +26,8 @@ class AboutUsSectionResource extends Resource
 {
     protected static ?string $model = AboutUsSection::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text'; // Ganti ikon navigasi jika mau
-    protected static ?string $pluralModelLabel = 'About'; // Plural label
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $pluralModelLabel = 'About';
     protected static ?string $navigationGroup = 'Home Management';
 
     public static function form(Form $form): Form
@@ -67,11 +67,11 @@ class AboutUsSectionResource extends Resource
                                     ->required()
                                     ->maxLength(255),
                             ])
-                            ->defaultItems(3) // Jumlah item awal saat membuat baru
+                            ->defaultItems(3)
                             ->grid(1)
                             ->minItems(1)
-                            ->maxItems(5) // Batasi jumlah misi jika perlu
-                            ->reorderableWithButtons(), // Memungkinkan admin untuk menyusun ulang
+                            ->maxItems(5)
+                            ->reorderableWithButtons(), 
                     ])->columns(1),
 
                 Section::make('Fakta & Angka')
@@ -87,12 +87,12 @@ class AboutUsSectionResource extends Resource
                                 TextInput::make('value')
                                     ->label('Nilai Fakta')
                                     ->required()
-                                    ->maxLength(255), // String karena bisa ada "+"
+                                    ->maxLength(255),
                             ])
-                            ->defaultItems(3) // Jumlah item awal saat membuat baru
-                            ->minItems(0) // Boleh tidak ada fakta
-                            ->grid(2) // Tampilkan label dan value dalam 2 kolom per item
-                            ->reorderableWithButtons(), // Memungkinkan admin untuk menyusun ulang
+                            ->defaultItems(3) 
+                            ->minItems(0) 
+                            ->grid(2) 
+                            ->reorderableWithButtons(), 
                     ])->columns(1),
             ]);
     }
@@ -103,13 +103,13 @@ class AboutUsSectionResource extends Resource
             ->columns([
                 TextColumn::make('about_us_description')
                     ->label('Deskripsi Singkat')
-                    ->limit(50), // Batasi teks untuk tampilan tabel
+                    ->limit(50),
                 TextColumn::make('vision_text')
                     ->label('Visi')
                     ->limit(50),
                 TextColumn::make('facts')
                     ->label('Jumlah Fakta')
-                    ->getStateUsing(fn ($record) => count($record->facts ?? [])) // Menghitung jumlah fakta
+                    ->getStateUsing(fn ($record) => count($record->facts ?? [])) 
                     ->sortable(),
                 TextColumn::make('updated_at')
                     ->label('Terakhir Diperbarui')

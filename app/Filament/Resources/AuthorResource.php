@@ -36,7 +36,6 @@ class AuthorResource extends Resource
                     ->image()
                     ->directory('authors')
                     ->deleteUploadedFileUsing(function ($file) {
-                        // Hapus file ketika dihapus dari form
                         if (Storage::disk('public')->exists($file)) {
                             return Storage::disk('public')->delete($file);
                         }
@@ -67,7 +66,6 @@ class AuthorResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
                     ->before(function (Author $record) {
-                        // Hapus avatar sebelum record dihapus
                         if (!empty($record->avatar) && Storage::disk('public')->exists($record->avatar)) {
                             Storage::disk('public')->delete($record->avatar);
                         }
@@ -77,7 +75,6 @@ class AuthorResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
                         ->before(function (Collection $records) {
-                            // Hapus avatar sebelum records dihapus (bulk delete)
                             foreach ($records as $record) {
                                 if (!empty($record->avatar) && Storage::disk('public')->exists($record->avatar)) {
                                     Storage::disk('public')->delete($record->avatar);
