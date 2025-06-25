@@ -1,15 +1,12 @@
 <div>
-    {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
     <div>
         @section('title', $article->title ?? 'Artikel')
         @section('meta_description', $article->excerpt ?? '')
 
-        {{-- [UBAH] Latar belakang diubah agar menyatu dengan tema gelap --}}
         <div class="min-h-screen pt-8">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 {{-- Breadcrumb Navigation --}}
                 <nav class="mb-8">
-                    {{-- [UBAH] Breadcrumbs dengan gaya terminal --}}
                     <ol class="flex items-center space-x-2 font-mono text-sm text-gray-500">
                         <li><a wire:navigate href="{{ route('home') }}" class="hover:text-green-300 transition-colors">/home</a></li>
                         <li><span class="text-gray-600">/</span></li>
@@ -24,7 +21,6 @@
                     <header class="mb-8">
                         {{-- Category Badge --}}
                         <div class="mb-4">
-                            {{-- [UBAH] Badge dengan gaya 'chip' digital --}}
                             <span class="font-mono text-xs text-green-300 bg-green-900/50 border border-green-800 px-3 py-1 rounded-full">
                                 TOPIC: {{ $article->category->name ?? 'UNCATEGORIZED' }}
                             </span>
@@ -43,7 +39,6 @@
                         @endif
 
                         {{-- Article Meta --}}
-                        {{-- [UBAH] Meta info dengan gaya data log --}}
                         <div class="flex flex-wrap items-center gap-x-6 gap-y-2 py-4 border-t border-b border-gray-800 font-mono text-xs text-gray-500">
                             <div class="flex items-center" title="Author">
                                 <i class="fas fa-user-secret mr-2 text-green-400/70"></i>
@@ -74,7 +69,6 @@
                     @endif
 
                     {{-- Article Content --}}
-                    {{-- [UBAH] Konten diubah dengan style 'prose-invert' dan warna hijau --}}
                     <article class="prose prose-lg prose-invert max-w-none mb-12 prose-headings:text-green-300 prose-a:text-green-400 prose-blockquote:border-green-500 prose-strong:text-white">
                         {!! $article->content ?? '<p class="text-gray-500">// CONTENT_STREAM_EMPTY //</p>' !!}
                     </article>

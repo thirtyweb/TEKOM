@@ -168,7 +168,6 @@
                     }, 50);
                 }
 
-                {{-- [FIX] Mengembalikan urutan "peretasan" yang lebih detail --}}
                 async function startHacking(target) {
                     const steps = [{
                             msg: `[+] Initiating connection to target: ${target}`,
@@ -223,7 +222,6 @@
                     });
                 }
 
-                {{-- [FIX] Memastikan startHacking dipanggil setelah animasi mengetik --}}
                 typeEffect(commandLine, 'Run Server Tekomss.ipb.ac.id', () => {
                     startHacking('tekomss.ac.id');
                 });

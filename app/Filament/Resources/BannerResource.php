@@ -57,7 +57,7 @@ class BannerResource extends Resource
                                 Forms\Components\FileUpload::make('image')
                                     ->image()
                                     ->directory('banners/slides')
-                                    ->maxSize(5048) // 2MB dalam KB
+                                    ->maxSize(5048) 
                                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
                                     ->imageEditor()
                                     ->imageEditorAspectRatios([
@@ -68,7 +68,6 @@ class BannerResource extends Resource
                                     ->required()
                                     ->columnSpan(2)
                                     ->deleteUploadedFileUsing(function ($file) {
-                                        // Hapus file ketika dihapus dari form
                                         if (Storage::disk('public')->exists($file)) {
                                             return Storage::disk('public')->delete($file);
                                         }
@@ -102,7 +101,6 @@ class BannerResource extends Resource
                                 fn (Forms\Components\Actions\Action $action) => $action
                                     ->requiresConfirmation()
                                     ->before(function (array $arguments, Forms\Components\Repeater $component) {
-                                        // Hapus gambar ketika slide dihapus
                                         $statePath = $component->getStatePath();
                                         $record = $component->getRecord();
                                         if ($record && isset($arguments['item'])) {
@@ -203,7 +201,6 @@ class BannerResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
                     ->before(function (Banner $record) {
-                        // Hapus semua gambar slides sebelum record dihapus
                         if (!empty($record->slides) && is_array($record->slides)) {
                             foreach ($record->slides as $slide) {
                                 if (!empty($slide['image']) && Storage::disk('public')->exists($slide['image'])) {
@@ -217,7 +214,6 @@ class BannerResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
                         ->before(function (Collection $records) {
-                            // Hapus semua gambar slides sebelum records dihapus (bulk delete)
                             foreach ($records as $record) {
                                 if (!empty($record->slides) && is_array($record->slides)) {
                                     foreach ($record->slides as $slide) {

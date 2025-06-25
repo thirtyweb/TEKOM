@@ -48,7 +48,6 @@ class ArticleResource extends Resource
                             ->image()
                             ->directory('articles')
                             ->deleteUploadedFileUsing(function ($file) {
-                                // Hapus file ketika dihapus dari form
                                 if (Storage::disk('public')->exists($file)) {
                                     return Storage::disk('public')->delete($file);
                                 }
@@ -69,13 +68,12 @@ class ArticleResource extends Resource
                             ->default('published')
                             ->live()
                             ->afterStateUpdated(function ($state, callable $set, $get) {
-                                // Auto set published_at when status is published
                                 if ($state === 'published' && !$get('published_at')) {
                                     $set('published_at', now());
                                 }
                             }),
                         Forms\Components\DateTimePicker::make('published_at')
-                            ->default(now()) // Set default value
+                            ->default(now()) 
                             ->label('Publish Date')
                             ->helperText('Leave empty to publish immediately when status is published'),
                         Forms\Components\KeyValue::make('meta_data')
@@ -147,7 +145,6 @@ class ArticleResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
                     ->before(function (Article $record) {
-                        // Hapus featured_image sebelum record dihapus
                         if (!empty($record->featured_image) && Storage::disk('public')->exists($record->featured_image)) {
                             Storage::disk('public')->delete($record->featured_image);
                         }
@@ -157,7 +154,6 @@ class ArticleResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
                         ->before(function (Collection $records) {
-                            // Hapus featured_image sebelum records dihapus (bulk delete)
                             foreach ($records as $record) {
                                 if (!empty($record->featured_image) && Storage::disk('public')->exists($record->featured_image)) {
                                     Storage::disk('public')->delete($record->featured_image);

@@ -32,16 +32,12 @@ class ArticleList extends Component
 
     public function render()
     {
-        // Fix timezone untuk comparison
         $currentTime = now()->setTimezone(config('app.timezone', 'UTC'));
         
         $query = Article::where('status', 'published')
             ->where('published_at', '<=', $currentTime)
             ->whereNotNull('published_at')
             ->with(['category', 'author']);
-
-        // Atau gunakan scope yang lebih permisif
-        // $query = Article::publishedNow()->with(['category', 'author']);
 
         if ($this->categoryId) {
             $query->where('category_id', $this->categoryId);

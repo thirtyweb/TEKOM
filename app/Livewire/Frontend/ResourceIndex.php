@@ -25,7 +25,6 @@ class ResourceIndex extends Component
         $resource = Resource::findOrFail($resourceId);
         $resource->incrementDownloadCount();
         
-        // Redirect to download
         return redirect($resource->download_url ?: asset('storage/' . $resource->file_path));
     }
 

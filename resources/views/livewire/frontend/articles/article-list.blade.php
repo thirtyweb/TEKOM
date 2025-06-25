@@ -33,7 +33,6 @@
         {{-- Articles Grid --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($articles as $article)
-                {{-- [UBAH] Menggunakan desain kartu artikel yang konsisten dengan homepage --}}
                 <article wire:key="article-{{ $article->id }}"
                          class="group flex flex-col bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden hover:border-green-500/50 transition-colors duration-300">
                     @if ($article->featured_image)
@@ -99,7 +98,6 @@
         @endif
     </div>
 
-    {{-- [BARU] Custom Styles untuk pagination di tema gelap --}}
     <style>
         .perspective-1000 {
                 perspective: 1000px;

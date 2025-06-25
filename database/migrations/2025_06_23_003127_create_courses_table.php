@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 20)->unique(); // IPB110A, KIM1104, etc
-            $table->string('name'); // Nama mata kuliah
-            $table->string('sks', 10); // Format: 3(2-1) atau 2(2-0)
-            $table->string('prerequisite')->nullable(); // Mata kuliah prasyarat
-            $table->integer('semester'); // Semester 1-8
-            $table->string('category'); // Kategori mata kuliah
+            $table->string('code', 20)->unique(); 
+            $table->string('name'); 
+            $table->string('sks', 10); 
+            $table->string('prerequisite')->nullable(); 
+            $table->integer('semester'); 
+            $table->string('category'); 
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

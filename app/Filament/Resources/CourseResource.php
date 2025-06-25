@@ -15,36 +15,36 @@ class CourseResource extends Resource
 {
     protected static ?string $model = Course::class;
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
-    protected static ?string $navigationLabel = 'Courses'; // Translated
-    protected static ?string $modelLabel = 'Course'; // Translated
-    protected static ?string $pluralModelLabel = 'Courses'; // Translated
-    protected static ?string $navigationGroup = 'Academic'; // Translated
+    protected static ?string $navigationLabel = 'Courses'; 
+    protected static ?string $modelLabel = 'Course'; 
+    protected static ?string $pluralModelLabel = 'Courses'; 
+    protected static ?string $navigationGroup = 'Academic';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Course Information') // Translated
+                Forms\Components\Section::make('Course Information') 
                     ->schema([
                         Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('code')
-                                    ->label('Course Code') // Translated
+                                    ->label('Course Code') 
                                     ->required()
                                     ->unique(ignoreRecord: true)
-                                    ->placeholder('IPB110A') // Kept as example
+                                    ->placeholder('IPB110A')
                                     ->maxLength(20),
                                 
-                                Forms\Components\TextInput::make('sks') // Kept as SKS (credit units)
-                                    ->label('Credit Units (SKS)') // Translated and added SKS for context
+                                Forms\Components\TextInput::make('sks') 
+                                    ->label('Credit Units (SKS)') 
                                     ->required()
-                                    ->placeholder('3(2-1)') // Kept as example
-                                    ->helperText('Format: Total(Theory-Practice)') // Translated
+                                    ->placeholder('3(2-1)')
+                                    ->helperText('Format: Total(Theory-Practice)')
                                     ->maxLength(10),
                             ]),
 
                         Forms\Components\TextInput::make('name')
-                            ->label('Course Name') // Translated
+                            ->label('Course Name') 
                             ->required()
                             ->columnSpanFull()
                             ->maxLength(255),
@@ -52,7 +52,7 @@ class CourseResource extends Resource
                         Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\Select::make('semester')
-                                    ->label('Semester') // Translated
+                                    ->label('Semester')
                                     ->required()
                                     ->options([
                                         1 => 'Semester 1',
@@ -66,29 +66,29 @@ class CourseResource extends Resource
                                     ]),
 
                                 Forms\Components\Select::make('category')
-                                    ->label('Category') // Translated
+                                    ->label('Category') 
                                     ->required()
                                     ->options([
-                                        'PPKU/Common Core Courses' => 'PPKU/Common Core Courses', // Kept specific term
-                                        'Mata Kuliah Wajib Program Studi' => 'Program Mandatory Courses', // Translated
-                                        'Mata Kuliah Pilihan Program Studi' => 'Program Elective Courses', // Translated
-                                        'Mata Kuliah Pilihan Bebas' => 'Free Elective Courses', // Translated
-                                        'MBKM' => 'MBKM', // Kept specific term
+                                        'PPKU/Common Core Courses' => 'PPKU/Common Core Courses',
+                                        'Mata Kuliah Wajib Program Studi' => 'Program Mandatory Courses',
+                                        'Mata Kuliah Pilihan Program Studi' => 'Program Elective Courses', 
+                                        'Mata Kuliah Pilihan Bebas' => 'Free Elective Courses',
+                                        'MBKM' => 'MBKM', 
                                     ])
                                     ->searchable(),
                             ]),
 
                         Forms\Components\TextInput::make('prerequisite')
-                            ->label('Prerequisite Courses') // Translated
-                            ->placeholder('IPB110A, KIM1104') // Kept as example
-                            ->helperText('Leave empty if no prerequisite') // Translated
+                            ->label('Prerequisite Courses') 
+                            ->placeholder('IPB110A, KIM1104') 
+                            ->helperText('Leave empty if no prerequisite') 
                             ->columnSpanFull()
                             ->maxLength(255),
 
                         Forms\Components\Toggle::make('is_active')
-                            ->label('Active Status') // Translated
+                            ->label('Active Status') 
                             ->default(true)
-                            ->helperText('Inactive courses will not be displayed'), // Translated
+                            ->helperText('Inactive courses will not be displayed'), 
                     ]),
             ]);
     }
@@ -98,26 +98,26 @@ class CourseResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('code')
-                    ->label('Code') // Translated
+                    ->label('Code') 
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Bold)
                     ->color('primary'),
 
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Course Name') // Translated
+                    ->label('Course Name') 
                     ->searchable()
                     ->sortable()
                     ->wrap(),
 
                 Tables\Columns\TextColumn::make('sks')
-                    ->label('SKS') // Kept as SKS
+                    ->label('SKS') 
                     ->alignCenter()
                     ->badge()
                     ->color('success'),
 
                 Tables\Columns\TextColumn::make('semester')
-                    ->label('Semester') // Translated
+                    ->label('Semester') 
                     ->alignCenter()
                     ->badge()
                     ->color(fn ($record) => match($record->semester) {
@@ -129,31 +129,31 @@ class CourseResource extends Resource
                     }),
 
                 Tables\Columns\TextColumn::make('prerequisite')
-                    ->label('Prerequisite') // Translated
+                    ->label('Prerequisite') 
                     ->limit(30)
-                    ->placeholder('None') // Translated
+                    ->placeholder('None') 
                     ->tooltip(fn ($record) => $record->prerequisite),
 
                 Tables\Columns\TextColumn::make('category')
-                    ->label('Category') // Translated
+                    ->label('Category') 
                     ->wrap()
                     ->badge()
                     ->color('gray'),
 
                 Tables\Columns\IconColumn::make('is_active')
-                    ->label('Status') // Translated
+                    ->label('Status') 
                     ->boolean()
                     ->alignCenter(),
                     
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Created At') // Translated
+                    ->label('Created At') 
                     ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('semester')
-                    ->label('Semester') // Translated
+                    ->label('Semester') 
                     ->options([
                         1 => 'Semester 1',
                         2 => 'Semester 2', 
@@ -166,17 +166,17 @@ class CourseResource extends Resource
                     ]),
 
                 Tables\Filters\SelectFilter::make('category')
-                    ->label('Category') // Translated
+                    ->label('Category') 
                     ->options([
-                        'PPKU/Common Core Courses' => 'PPKU/Common Core Courses', // Kept specific term
-                        'Mata Kuliah Wajib Program Studi' => 'Program Mandatory Courses', // Translated
-                        'Mata Kuliah Pilihan Program Studi' => 'Program Elective Courses', // Translated
-                        'Mata Kuliah Pilihan Bebas' => 'Free Elective Courses', // Translated
-                        'MBKM' => 'MBKM', // Kept specific term
+                        'PPKU/Common Core Courses' => 'PPKU/Common Core Courses', 
+                        'Mata Kuliah Wajib Program Studi' => 'Program Mandatory Courses', 
+                        'Mata Kuliah Pilihan Program Studi' => 'Program Elective Courses', 
+                        'Mata Kuliah Pilihan Bebas' => 'Free Elective Courses', 
+                        'MBKM' => 'MBKM', 
                     ]),
 
                 Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Active Status'), // Translated
+                    ->label('Active Status'), 
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -186,12 +186,12 @@ class CourseResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\BulkAction::make('activate')
-                        ->label('Activate') // Translated
+                        ->label('Activate') 
                         ->icon('heroicon-o-check-circle')
                         ->color('success')
                         ->action(fn ($records) => $records->each->update(['is_active' => true])),
                     Tables\Actions\BulkAction::make('deactivate')
-                        ->label('Deactivate') // Translated
+                        ->label('Deactivate') 
                         ->icon('heroicon-o-x-circle')
                         ->color('danger')
                         ->action(fn ($records) => $records->each->update(['is_active' => false])),

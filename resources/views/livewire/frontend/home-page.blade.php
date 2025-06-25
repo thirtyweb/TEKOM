@@ -53,7 +53,6 @@
                                     <span class="font-mono text-3xl font-bold text-white text-shadow-glow">{{ $fact['value'] }}</span>
                                 </div>
                             @empty
-                                {{-- Default facts jika tidak ada data dari admin --}}
                                 <div class="flex justify-between items-baseline border-b border-gray-700/50 pb-2">
                                     <span class="text-gray-400 text-lg">Mahasiswa Aktif</span>
                                     <span class="font-mono text-3xl font-bold text-white text-shadow-glow">1,200+</span>
@@ -158,9 +157,7 @@
         @if ($quoteOfTheDay)
             <section class="py-12 md:py-16 relative overflow-hidden quote-section" data-aos="fade-in" data-aos-duration="1200" data-aos-delay="100">
                 <div class="absolute inset-0 bg-black/70 backdrop-blur-md animate-twinkle"></div>
-                {{-- New element for twinkling dots --}}
                 <div class="absolute inset-0 z-0 twinkling-lines-bg"></div>
-                {{-- End new element --}}
                 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                     <div class="border-t border-b border-green-500/20 py-10 px-4 bg-gray-900/30 rounded-xl backdrop-blur-sm shadow-2xl relative overflow-hidden">
                         <div class="absolute inset-0 z-0 opacity-5" style="background: repeating-linear-gradient(-45deg, rgba(0,255,0,0.1), rgba(0,255,0,0.1) 2px, transparent 2px, transparent 8px);"></div>
@@ -239,15 +236,14 @@
     <script>
         document.addEventListener('livewire:navigated', () => {
             AOS.init({
-                once: true, // Animation should happen only once - while scrolling down
-                mirror: false, // Elements should NOT animate out while scrolling past them
-                duration: 1000, // Default duration for AOS animations
-                easing: 'ease-out-quad', // Default easing for AOS animations
+                once: true,
+                mirror: false,
+                duration: 1000,
+                easing: 'ease-out-quad', 
             });
-            AOS.refresh(); // Refresh AOS when Livewire navigation occurs to detect new elements
+            AOS.refresh();
         });
 
-        // Also initialize on initial page load (for first visit or hard refresh)
         document.addEventListener('DOMContentLoaded', () => {
             AOS.init({
                 once: true,
@@ -259,12 +255,10 @@
     </script>
 
     <style>
-        /* Custom Tailwind utility for text glow */
         .text-shadow-glow {
             text-shadow: 0 0 8px rgba(0, 255, 0, 0.6), 0 0 15px rgba(0, 255, 0, 0.3);
         }
 
-        /* Pulse animation for the small text and quote icon */
         .animate-pulse {
             animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
@@ -277,7 +271,6 @@
             }
         }
 
-        /* Shine effect for section titles */
         .animate-shine {
             animation: shine 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
@@ -290,7 +283,6 @@
             }
         }
 
-        /* Additional transformations for Hero section */
         .perspective-1000 {
             perspective: 1000px;
         }
@@ -298,7 +290,6 @@
             transform: rotateX(-1deg);
         }
 
-        /* Custom scrollbar for a futuristic feel (optional) */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -316,7 +307,6 @@
             background: #0ad30a; /* Lighter green on hover */
         }
 
-        /* Twinkle animation for quote background */
         @keyframes twinkle {
             0%, 100% { opacity: 0.7; transform: scale(1); }
             50% { opacity: 0.9; transform: scale(1.02); }
@@ -326,7 +316,6 @@
             animation: twinkle 5s linear infinite;
         }
 
-        /* Twinkling lines animation */
         .twinkling-lines-bg {
             position: absolute;
             inset: 0;

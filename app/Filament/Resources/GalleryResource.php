@@ -46,7 +46,6 @@ class GalleryResource extends Resource
                     ->required()
                     ->helperText('Upload multiple images for this gallery')
                     ->deleteUploadedFileUsing(function ($file) {
-                        // Hapus file ketika dihapus dari form
                         if (Storage::disk('public')->exists($file)) {
                             return Storage::disk('public')->delete($file);
                         }
@@ -67,11 +66,9 @@ class GalleryResource extends Resource
                 Tables\Columns\TextColumn::make('images')
                     ->label('Images Count')
                     ->formatStateUsing(function ($state) {
-                        // Handle different data types safely
                         if (is_array($state)) {
                             return count($state) . ' images';
                         } elseif (is_string($state)) {
-                            // Try to decode JSON string
                             $decoded = json_decode($state, true);
                             if (is_array($decoded)) {
                                 return count($decoded) . ' images';
@@ -87,13 +84,12 @@ class GalleryResource extends Resource
                     ->getStateUsing(function ($record) {
                         $images = $record->images;
                         
-                        // Handle different data types
                         if (is_string($images)) {
                             $images = json_decode($images, true);
                         }
                         
                         if (is_array($images) && !empty($images)) {
-                            return $images[0]; // Return first image for preview
+                            return $images[0]; 
                         }
                         
                         return null;
@@ -119,10 +115,8 @@ class GalleryResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
                     ->before(function (Gallery $record) {
-                        // Hapus semua images sebelum record dihapus
                         $images = $record->images;
                         
-                        // Handle different data types
                         if (is_string($images)) {
                             $images = json_decode($images, true);
                         }
@@ -140,11 +134,9 @@ class GalleryResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
                         ->before(function (Collection $records) {
-                            // Hapus semua images sebelum records dihapus (bulk delete)
                             foreach ($records as $record) {
                                 $images = $record->images;
                                 
-                                // Handle different data types
                                 if (is_string($images)) {
                                     $images = json_decode($images, true);
                                 }
